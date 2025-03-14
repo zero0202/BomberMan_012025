@@ -276,6 +276,8 @@
     <None Include="..\..\BomberMan_012025.uproject"/>
     <None Include="..\..\Source\BomberMan_012025.Target.cs"/>
     <None Include="..\..\Source\BomberMan_012025Editor.Target.cs"/>
+    <None Include="..\..\.gitattributes"/>
+    <None Include="..\..\.gitignore"/>
     <None Include="..\..\.vsconfig"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini"/>
@@ -290,6 +292,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\BloqueAcero.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueMadera.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\BloqueMadera.h"/>
     <None Include="..\..\Source\BomberMan_012025\BomberMan_012025.Build.cs"/>
     <ClCompile Include="..\..\Source\BomberMan_012025\BomberMan_012025.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

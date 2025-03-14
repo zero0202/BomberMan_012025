@@ -11,6 +11,8 @@
     <None Include="..\..\Source\BomberMan_012025Editor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitattributes" />
+    <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
@@ -43,6 +45,12 @@
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\BloqueAcero.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueMadera.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\BloqueMadera.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
     <None Include="..\..\Source\BomberMan_012025\BomberMan_012025.Build.cs">

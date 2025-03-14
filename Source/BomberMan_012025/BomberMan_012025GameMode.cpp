@@ -8,7 +8,7 @@
 #include "Bloque.h"
 #include "Muro.h"
 #include "BloqueAcero.h"
-
+#include "BloqueMadera.h"
 
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
@@ -125,35 +125,6 @@ void ABomberMan_012025GameMode::BeginPlay()
 
 
     */
-
-
-    //Para generar bloques y muros intercalados
-    /*
-     for (int i = 0; i < filas; i++)
-    {
-        for (int j = 0; j < columnas; j++)
-        {
-            // Calcular la posición de cada bloque o muro
-            FVector posicion(570.0f + j * espacio, 3000.0f - i * espacio, 5.0f);
-
-            // Alternar entre bloque y muro
-            if ((i + j) % 2 == 0) // Si la suma de i y j es par, crea un bloque
-            {
-                ABloque* Bloque = GetWorld()->SpawnActor<ABloque>(ABloque::StaticClass(), posicion, FRotator(0.0f, 0.0f, 0.0f));
-
-                if (Bloque->bPuedeMoverse)
-                {
-                    // Aquí puedes agregar lógica adicional si es necesario
-                }
-            }
-            else // Si la suma de i y j es impar, crea un muro
-            {
-                AMuro* Muro = GetWorld()->SpawnActor<AMuro>(AMuro::StaticClass(), posicion, FRotator(0.0f, 0.0f, 0.0f));
-            }
-        }
-    }
-    
-    */
    
 	//PARA BLOQUE DE ACERO
 
@@ -164,6 +135,16 @@ void ABomberMan_012025GameMode::BeginPlay()
         FVector posicionAcero(700.0f + i * espacioBA, 1680.0f, 5.0f);
         ABloqueAcero* BloqueAcero1 = GetWorld()->SpawnActor<ABloqueAcero>(ABloqueAcero::StaticClass(), posicionAcero, FRotator::ZeroRotator);
     }
-
+    //PARA BLOQUE MADERA
+	float espacioBMA = 500.0f;
+    for (int i = 0 ; i < 2; i++)
+    {
+		FVector posicionMadera(2260.0f + i * espacioBMA, 400.0f, 5.0f);
+		ABloqueMadera* BloqueMadera1 = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), posicionMadera, FRotator::ZeroRotator);
+        if (BloqueMadera1)
+        {
+			BloqueMadera1->bAbriendo = true;
+        }
+    }
 
 }
