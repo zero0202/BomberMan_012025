@@ -48,12 +48,12 @@ void ABloqueAcero::Tick(float DeltaTime)
 	Super::Tick(DeltaTime); 
 	
 	FVector NewLocation = GetActorLocation();
-	float TimeOffset = GetActorLocation().X * 5.0f;  // Desfase para efecto de ola
+	float TimeOffset = GetActorLocation().X * 4.0f;  // Desfase para efecto de ola
 
 	// Movimiento en forma de serpiente
-	float DeltaHeight = FMath::Sin(GetWorld()->GetTimeSeconds() * velocidad + TimeOffset) * 10.0f; // Oscilación en Z
-	float DeltaX = FMath::Sin(GetWorld()->GetTimeSeconds() * velocidad) * 10.0f; // Oscilación en X
-	float DeltaY = FMath::Cos(GetWorld()->GetTimeSeconds() * velocidad) * 10.0f; // Oscilación en Y
+	float DeltaHeight = FMath::Sin(GetWorld()->GetTimeSeconds() * velocidad + TimeOffset) * 5.0f; // Oscilación en Z
+	float DeltaX = FMath::Sin(GetWorld()->GetTimeSeconds() * velocidad) * 3.0f; // Oscilación en X
+	float DeltaY = FMath::Cos(GetWorld()->GetTimeSeconds() * velocidad) * 3.0f; // Oscilación en Y
 
 	NewLocation.Z = 5.0f + DeltaHeight; // Altura de la ola
 	NewLocation.X += DeltaX; // Movimiento en X

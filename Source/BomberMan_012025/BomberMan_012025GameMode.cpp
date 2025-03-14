@@ -124,7 +124,7 @@ void ABomberMan_012025GameMode::BeginPlay()
     }
 
 
-    */
+    
    
 	//PARA BLOQUE DE ACERO
 
@@ -146,5 +146,32 @@ void ABomberMan_012025GameMode::BeginPlay()
 			BloqueMadera1->bAbriendo = true;
         }
     }
+    */
 
+    // Espacio entre bloques
+        float espacioMBA = 500.0f;
+
+    // Generar bloques de acero en una cuadrícula 2x2
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            FVector posicionAcero(700.0f + j * espacioMBA, 1680.0f + i * espacioMBA, 5.0f);
+            ABloqueAcero* BloqueAcero1 = GetWorld()->SpawnActor<ABloqueAcero>(ABloqueAcero::StaticClass(), posicionAcero, FRotator::ZeroRotator);
+        }
+    }
+
+    // Generar bloques de madera en una cuadrícula 2x2
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            FVector posicionMadera(1800.0f + j * espacioMBA, 1690.0f + i * espacioMBA, 5.0f);
+            ABloqueMadera* BloqueMadera1 = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), posicionMadera, FRotator::ZeroRotator);
+            if (BloqueMadera1)
+            {
+                BloqueMadera1->bAbriendo = true; // Iniciar el movimiento del bloque de madera
+            }
+        }
+    }
 }
