@@ -47,6 +47,12 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\BloqueAcero.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueLadrillo.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\BloqueLadrillo.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\BloqueMadera.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>

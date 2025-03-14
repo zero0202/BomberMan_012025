@@ -9,6 +9,7 @@
 #include "Muro.h"
 #include "BloqueAcero.h"
 #include "BloqueMadera.h"
+#include "BloqueLadrillo.h"
 
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
@@ -174,4 +175,14 @@ void ABomberMan_012025GameMode::BeginPlay()
             }
         }
     }
+
+	// Generar bloques de ladrillo en una cuadrícula 2x2
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			FVector posicionLadrillo(1800.0f + j * espacioMBA, 800.0f + i * espacioMBA, 10.0f);
+			ABloqueLadrillo* BloqueLadrillo1 = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(), posicionLadrillo, FRotator::ZeroRotator);
+		}
+	}
 }
