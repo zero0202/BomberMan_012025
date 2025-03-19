@@ -7,7 +7,7 @@
 #include "Bloque.generated.h"
 
 class UStaticMeshComponent;
-class UMaterialInterface;
+
 UCLASS()
 class BOMBERMAN_012025_API ABloque : public AActor
 {
@@ -28,9 +28,6 @@ public:
 	//malla del bloque
 	UPROPERTY()
 	UStaticMeshComponent* MeshBloque;
-	// Es * eso es punturo
-	UPROPERTY()
-	UMaterialInterface* BloqueMaterial;
 
 	UFUNCTION(BlueprintCallable)
 	void AjustarTamano(FVector NuevoTamano);

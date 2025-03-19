@@ -14,7 +14,6 @@ BOMBERMAN_012025_API UClass* Z_Construct_UClass_AMuro();
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_AMuro_NoRegister();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
-ENGINE_API UClass* Z_Construct_UClass_UMaterialInterface_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_BomberMan_012025();
 // End Cross Module References
@@ -86,12 +85,8 @@ struct Z_Construct_UClass_AMuro_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Muro.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MuroMaterial_MetaData[] = {
-		{ "ModuleRelativePath", "Muro.h" },
-	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MeshMuro;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_MuroMaterial;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -104,10 +99,8 @@ struct Z_Construct_UClass_AMuro_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMuro_Statics::NewProp_MeshMuro = { "MeshMuro", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMuro, MeshMuro), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeshMuro_MetaData), NewProp_MeshMuro_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMuro_Statics::NewProp_MuroMaterial = { "MuroMaterial", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMuro, MuroMaterial), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MuroMaterial_MetaData), NewProp_MuroMaterial_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMuro_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMuro_Statics::NewProp_MeshMuro,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMuro_Statics::NewProp_MuroMaterial,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMuro_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMuro_Statics::DependentSingletons[])() = {
@@ -150,10 +143,10 @@ AMuro::~AMuro() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Muro_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMuro, AMuro::StaticClass, TEXT("AMuro"), &Z_Registration_Info_UClass_AMuro, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMuro), 3383444247U) },
+		{ Z_Construct_UClass_AMuro, AMuro::StaticClass, TEXT("AMuro"), &Z_Registration_Info_UClass_AMuro, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMuro), 1230101432U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Muro_h_1283901048(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Muro_h_288454575(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Muro_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Muro_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

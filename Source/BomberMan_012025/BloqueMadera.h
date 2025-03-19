@@ -7,7 +7,7 @@
 #include "BloqueMadera.generated.h"
 
 class UStaticMeshComponent;
-class UMaterialInterface;
+
 
 UCLASS()
 class BOMBERMAN_012025_API ABloqueMadera : public AActor
@@ -29,8 +29,6 @@ public:
 
 	UPROPERTY()
 	UStaticMeshComponent* MeshBloqueMadera; 
-	UPROPERTY()
-	UMaterialInterface* BloqueMaderaMaterial;
 
 	bool bAbriendo;
 	float VelocidadMovimiento;
@@ -39,5 +37,5 @@ public:
 
 
 	UFUNCTION(BlueprintCallable)
-	void AjustarTamanoAcero(FVector NuevoTamano);
+	void AjustarTamanoMadera(FVector NuevoTamano);
 };

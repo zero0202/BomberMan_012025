@@ -15,7 +15,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define BOMBERMAN_012025_BloqueMadera_generated_h
 
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execAjustarTamanoAcero);
+	DECLARE_FUNCTION(execAjustarTamanoMadera);
 
 
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_INCLASS_NO_PURE_DECLS \

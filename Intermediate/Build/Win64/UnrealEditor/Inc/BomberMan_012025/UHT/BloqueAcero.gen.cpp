@@ -14,7 +14,6 @@ BOMBERMAN_012025_API UClass* Z_Construct_UClass_ABloqueAcero();
 BOMBERMAN_012025_API UClass* Z_Construct_UClass_ABloqueAcero_NoRegister();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
-ENGINE_API UClass* Z_Construct_UClass_UMaterialInterface_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_BomberMan_012025();
 // End Cross Module References
@@ -86,12 +85,8 @@ struct Z_Construct_UClass_ABloqueAcero_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "BloqueAcero.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BloqueAceroMaterial_MetaData[] = {
-		{ "ModuleRelativePath", "BloqueAcero.h" },
-	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MeshBloqueAcero;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_BloqueAceroMaterial;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -104,10 +99,8 @@ struct Z_Construct_UClass_ABloqueAcero_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABloqueAcero_Statics::NewProp_MeshBloqueAcero = { "MeshBloqueAcero", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABloqueAcero, MeshBloqueAcero), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeshBloqueAcero_MetaData), NewProp_MeshBloqueAcero_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABloqueAcero_Statics::NewProp_BloqueAceroMaterial = { "BloqueAceroMaterial", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABloqueAcero, BloqueAceroMaterial), Z_Construct_UClass_UMaterialInterface_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BloqueAceroMaterial_MetaData), NewProp_BloqueAceroMaterial_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABloqueAcero_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABloqueAcero_Statics::NewProp_MeshBloqueAcero,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABloqueAcero_Statics::NewProp_BloqueAceroMaterial,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABloqueAcero_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ABloqueAcero_Statics::DependentSingletons[])() = {
@@ -150,10 +143,10 @@ ABloqueAcero::~ABloqueAcero() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueAcero_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloqueAcero, ABloqueAcero::StaticClass, TEXT("ABloqueAcero"), &Z_Registration_Info_UClass_ABloqueAcero, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueAcero), 3367823258U) },
+		{ Z_Construct_UClass_ABloqueAcero, ABloqueAcero::StaticClass, TEXT("ABloqueAcero"), &Z_Registration_Info_UClass_ABloqueAcero, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueAcero), 4213790837U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueAcero_h_2122823314(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueAcero_h_3180442580(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueAcero_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueAcero_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

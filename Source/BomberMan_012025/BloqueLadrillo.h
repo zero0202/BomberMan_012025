@@ -7,7 +7,7 @@
 #include "BloqueLadrillo.generated.h"
 
 class UStaticMeshComponent;
-class UMaterialInterface;
+
 
 UCLASS()
 class BOMBERMAN_012025_API ABloqueLadrillo : public AActor
@@ -29,9 +29,6 @@ public:
 public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* MeshBloqueLadrillo;
-
-	UPROPERTY(VisibleAnywhere)
-	UMaterialInterface* BloqueLadrilloMaterial;
 
 	UFUNCTION(BlueprintCallable)
 	void AjustarTamanoAcero(FVector NuevoTamano);

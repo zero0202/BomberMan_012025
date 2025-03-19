@@ -32,7 +32,7 @@ ABloqueMadera::ABloqueMadera()
 	VelocidadMovimiento = 100.0f; // Velocidad de movimiento
 	DistanciaApertura = 200.0f;   // Distancia máxima de apertura
 	PosicionInicial = FVector::ZeroVector; // Se inicializará en BeginPlay
-	AjustarTamanoAcero(FVector(2.0f, 2.0f, 2.0f)); 
+	AjustarTamanoMadera(FVector(2.0f, 2.0f, 2.0f)); 
 }
 
 // Called when the game starts or when spawned
@@ -73,7 +73,7 @@ void ABloqueMadera::Tick(float DeltaTime)
 	SetActorLocation(NuevaPosicion);
 }
 
-void ABloqueMadera::AjustarTamanoAcero(FVector NuevoTamano)
+void ABloqueMadera::AjustarTamanoMadera(FVector NuevoTamano)
 {
 	MeshBloqueMadera->SetWorldScale3D(NuevoTamano);
 }

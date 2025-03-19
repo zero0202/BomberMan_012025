@@ -7,7 +7,7 @@
 #include "BloqueAcero.generated.h"
 
 class UStaticMeshComponent;
-class UMaterialInterface;
+
 UCLASS()
 class BOMBERMAN_012025_API ABloqueAcero : public AActor
 {
@@ -28,10 +28,7 @@ public:
 
 	UPROPERTY()
 	UStaticMeshComponent* MeshBloqueAcero;
-	UPROPERTY()
-	UMaterialInterface* BloqueAceroMaterial;
-
-
+	  
 	float velocidad;
 	UFUNCTION(BlueprintCallable)
 	void AjustarTamanoAcero(FVector NuevoTamano);

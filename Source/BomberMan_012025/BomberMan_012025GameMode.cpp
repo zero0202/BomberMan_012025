@@ -10,7 +10,7 @@
 #include "BloqueAcero.h"
 #include "BloqueMadera.h"
 #include "BloqueLadrillo.h"
-
+#include "BloqueConcreto.h"
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
@@ -167,7 +167,7 @@ void ABomberMan_012025GameMode::BeginPlay()
     {
         for (int j = 0; j < 2; j++)
         {
-            FVector posicionMadera(1800.0f + j * espacioMBA, 1690.0f + i * espacioMBA, 5.0f);
+            FVector posicionMadera(1800.0f + j * espacioMBA, 1690.0f + i * espacioMBA, 5.0f); 
             ABloqueMadera* BloqueMadera1 = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), posicionMadera, FRotator::ZeroRotator);
             if (BloqueMadera1)
             {
@@ -185,4 +185,15 @@ void ABomberMan_012025GameMode::BeginPlay()
 			ABloqueLadrillo* BloqueLadrillo1 = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(), posicionLadrillo, FRotator::ZeroRotator);
 		}
 	}
+
+    //PARA BLOQUES CONCRETOS 2 x2 
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            FVector posicionConcreto(700.0f + j * espacioMBA, 800.0f + i * espacioMBA, 10.0f);
+            ABloqueConcreto* BloqueConcreto1 = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(), posicionConcreto, FRotator::ZeroRotator);
+        }
+    }
+
 }
