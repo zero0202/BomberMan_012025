@@ -35,6 +35,7 @@ public:
 	
 	float velocidad;
 	float amplitud;
+	//float PosicionInicial;
 
 private:
 	// Posición inicial del objeto en el eje Z

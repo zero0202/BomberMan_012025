@@ -30,9 +30,9 @@ void ABomberMan_012025GameMode::BeginPlay()
     //PARA BLOQUE Y MURO INTERCALADOS
     GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("Generando bloques y muros intercalados"));
 
-    const int totalBloques = 5; // Número total de bloques
-    const int totalMuros = 5;   // Número total de muros
-    const float espacio = 500.0f; // Espacio entre elementos
+    const int totalBloques = 6; // Número total de bloques
+    const int totalMuros = 6;   // Número total de muros
+    const float espacio = 600.0f; // Espacio entre elementos
 
     TArray<ABloque*> BloquesArray;
     TArray<AMuro*> MurosArray;
@@ -43,9 +43,9 @@ void ABomberMan_012025GameMode::BeginPlay()
 
     for (int i = 0; i < 2; i++)
     {
-        for (int j = 0; j < 5; j++) 
+        for (int j = 0; j < 6; j++) 
         {
-            FVector posicion(570.0f + j * espacio, 3000.0f - i * espacio, 5.0f);
+            FVector posicion(900.0f + j * espacio, 6000.0f - i * espacio, 5.0f);
             if ((i + j) % 2 == 0 && bloqueCount < totalBloques)
             {
                 ABloque* Bloque = GetWorld()->SpawnActor<ABloque>(ABloque::StaticClass(), posicion, FRotator(0.0f, 0.0f, 0.0f));
@@ -73,6 +73,7 @@ void ABomberMan_012025GameMode::BeginPlay()
     {
         BloquesArray[0]->bPuedeMoverse = true;
         BloquesArray[1]->bPuedeMoverse = true;
+        BloquesArray[2]->bPuedeMoverse = true;
     }
 
     // Asignar dos muros para girar
@@ -150,14 +151,14 @@ void ABomberMan_012025GameMode::BeginPlay()
     */
 
     // Espacio entre bloques
-        float espacioMBA = 500.0f;
+        float espacioMBA = 600.0f;
 
     // Generar bloques de acero en una cuadrícula 2x2
     for (int i = 0; i < 2; i++)
     {
-        for (int j = 0; j < 2; j++)
+        for (int j = 0; j < 3; j++)
         {
-            FVector posicionAcero(700.0f + j * espacioMBA, 1680.0f + i * espacioMBA, 5.0f);
+            FVector posicionAcero(700.0f + j * espacioMBA, 4000.0f + i * espacioMBA, 5.0f);
             ABloqueAcero* BloqueAcero1 = GetWorld()->SpawnActor<ABloqueAcero>(ABloqueAcero::StaticClass(), posicionAcero, FRotator::ZeroRotator);
         }
     }
@@ -165,9 +166,9 @@ void ABomberMan_012025GameMode::BeginPlay()
     // Generar bloques de madera en una cuadrícula 2x2
     for (int i = 0; i < 2; i++)
     {
-        for (int j = 0; j < 2; j++)
+        for (int j = 0; j < 3; j++)
         {
-            FVector posicionMadera(1800.0f + j * espacioMBA, 1690.0f + i * espacioMBA, 5.0f); 
+            FVector posicionMadera(2500.0f + j * espacioMBA, 4000.0f + i * espacioMBA, 5.0f); 
             ABloqueMadera* BloqueMadera1 = GetWorld()->SpawnActor<ABloqueMadera>(ABloqueMadera::StaticClass(), posicionMadera, FRotator::ZeroRotator);
             if (BloqueMadera1)
             {
@@ -179,9 +180,9 @@ void ABomberMan_012025GameMode::BeginPlay()
 	// Generar bloques de ladrillo en una cuadrícula 2x2
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = 0; j < 3; j++)
 		{
-			FVector posicionLadrillo(1800.0f + j * espacioMBA, 800.0f + i * espacioMBA, 10.0f);
+			FVector posicionLadrillo(2500.0f + j * espacioMBA, 2000.0f + i * espacioMBA, 10.0f);
 			ABloqueLadrillo* BloqueLadrillo1 = GetWorld()->SpawnActor<ABloqueLadrillo>(ABloqueLadrillo::StaticClass(), posicionLadrillo, FRotator::ZeroRotator);
 		}
 	}
@@ -189,11 +190,11 @@ void ABomberMan_012025GameMode::BeginPlay()
     //PARA BLOQUES CONCRETOS 2 x2 
     for (int i = 0; i < 2; i++)
     {
-        for (int j = 0; j < 2; j++)
+       for (int j = 0; j < 3; j++)
         {
-            FVector posicionConcreto(700.0f + j * espacioMBA, 800.0f + i * espacioMBA, 10.0f);
+            FVector posicionConcreto(700.0f + j * espacioMBA, 2000.0f + i* espacioMBA, 10.0f);
             ABloqueConcreto* BloqueConcreto1 = GetWorld()->SpawnActor<ABloqueConcreto>(ABloqueConcreto::StaticClass(), posicionConcreto, FRotator::ZeroRotator);
         }
-    }
+   }
 
 }

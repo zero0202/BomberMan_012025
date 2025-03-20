@@ -16,15 +16,15 @@ ABloqueAcero::ABloqueAcero()
 	MeshBloqueAcero->SetupAttachment(RootComponent);
 
 	//static  solo pude existir una sola vez en una clase, se define un objeto estatico
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ObjetoMeshBloqueAcero(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cylinder.Shape_Cylinder'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ObjetoMeshBloqueAcero(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
 	if (ObjetoMeshBloqueAcero.Succeeded())
 	{
 		MeshBloqueAcero->SetStaticMesh(ObjetoMeshBloqueAcero.Object);
 
 		MeshBloqueAcero->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	}
-	//para asignar textura al bloque
-	static ConstructorHelpers::FObjectFinder<UMaterialInterface> ObjetoBloqueAceroMaterial(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Metal_Steel.M_Metal_Steel'"));
+	//para asignar textura
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> ObjetoBloqueAceroMaterial(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Tech_Panel.M_Tech_Panel'"));
 	if (ObjetoBloqueAceroMaterial.Succeeded())
 	{
 		MeshBloqueAcero->SetMaterial(0, ObjetoBloqueAceroMaterial.Object);
@@ -32,7 +32,7 @@ ABloqueAcero::ABloqueAcero()
 	}
 
 	velocidad = 0.5f;
-	AjustarTamanoAcero(FVector(2.0f, 2.0f, 2.0f)); // Tamaño por defecto
+	AjustarTamanoAcero(FVector(2.7f, 2.7f, 2.7f));
 }
 
 // Called when the game starts or when spawned
@@ -50,7 +50,7 @@ void ABloqueAcero::Tick(float DeltaTime)
 	FVector NewLocation = GetActorLocation();
 	float TimeOffset = GetActorLocation().X * 4.0f;  // Desfase para efecto de ola
 
-	// Movimiento en forma de serpiente
+	// Movimiento en forma circular
 	float DeltaHeight = FMath::Sin(GetWorld()->GetTimeSeconds() * velocidad + TimeOffset) * 5.0f; // Oscilación en Z
 	float DeltaX = FMath::Sin(GetWorld()->GetTimeSeconds() * velocidad) * 3.0f; // Oscilación en X
 	float DeltaY = FMath::Cos(GetWorld()->GetTimeSeconds() * velocidad) * 3.0f; // Oscilación en Y

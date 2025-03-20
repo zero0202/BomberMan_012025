@@ -33,7 +33,7 @@ AMuro::AMuro()
 	bPuedeGirar = false; // Se asignará desde el GameMode
 	RotationSpeed = 50.0f; // Velocidad de rotación por defecto
 	// Establecer el tamaño inicial del Muro
-	AjustarTamanoMuro(FVector(2.5f, 2.5f, 2.5f)); // Tamaño por defecto
+	AjustarTamanoMuro(FVector(2.8f, 2.8f, 2.8f)); // Tamaño por defecto
 }
 
 // Called when the game starts or when spawned

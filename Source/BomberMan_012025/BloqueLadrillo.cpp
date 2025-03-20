@@ -28,10 +28,10 @@ ABloqueLadrillo::ABloqueLadrillo()
 	}
 
 	// Inicializar variables
-	velocidad = 0.8f; // Velocidad de movimiento
-	amplitud = 50.0f;   // Distancia maxima de apertura
-	
-	AjustarTamanoAcero(FVector(2.0f, 2.0f, 2.0f));
+	velocidad = 2.0f; // Velocidad de movimiento
+	amplitud = 80.0f;   // Distancia maxima de apertura
+	//PosicionInicial = 5.0f;
+	AjustarTamanoAcero(FVector(2.7f, 2.7f, 2.7f));
 
 }
 
@@ -52,11 +52,14 @@ void ABloqueLadrillo::Tick(float DeltaTime)
 	FVector NewLocation = GetActorLocation();
 	float Tiempo = GetWorld()->GetTimeSeconds(); // Tiempo actual del juego
 
+	// Movimiento oscilatorio en el eje Z (arriba y abajo, pero no baja de 5.0f)
+	float Oscilacion = FMath::Sin(Tiempo * velocidad) * amplitud;
+
 	// Movimiento oscilatorio en el eje Z (arriba y abajo)
-	NewLocation.Z = PosicionInicial + FMath::Sin(Tiempo * velocidad) * amplitud;
+	NewLocation.Z = FMath::Max(PosicionInicial + Oscilacion, 5.0f);
 
 	// Actualizar la posición del actor
-	SetActorLocation(NewLocation);
+	SetActorLocation(NewLocation); 
 
 }
 

@@ -32,7 +32,8 @@ ABloqueMadera::ABloqueMadera()
 	VelocidadMovimiento = 100.0f; // Velocidad de movimiento
 	DistanciaApertura = 200.0f;   // Distancia máxima de apertura
 	PosicionInicial = FVector::ZeroVector; // Se inicializará en BeginPlay
-	AjustarTamanoMadera(FVector(2.0f, 2.0f, 2.0f)); 
+
+	AjustarTamanoMadera(FVector(2.7f, 2.7f, 2.7f)); 
 }
 
 // Called when the game starts or when spawned

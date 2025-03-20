@@ -29,13 +29,17 @@ public:
 	UPROPERTY()
 	UStaticMeshComponent* MeshBloque;
 
-	UFUNCTION(BlueprintCallable)
-	void AjustarTamano(FVector NuevoTamano);
+	
 	float FloatSpeed;
 	float RotationSpeed;
 	bool bPuedeMoverse;
 
+	UFUNCTION(BlueprintCallable)
+
+	void AjustarTamano(FVector NuevoTamano);
+
 private:
+
 	FVector PosicionInicial;
 	float AmplitudMovimiento = 100.0f; // Distancia máxima de movimiento
 	float DireccionMovimiento = 1.0f; // 1 = hacia arriba, -1 = hacia abajo
