@@ -14,16 +14,12 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_012025_BloqueLadrillo_generated_h
 
-#define FID_BomberMan_012025_Source_BomberMan_012025_BloqueLadrillo_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execAjustarTamanoAcero);
-
-
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloqueLadrillo_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABloqueLadrillo(); \
 	friend struct Z_Construct_UClass_ABloqueLadrillo_Statics; \
 public: \
-	DECLARE_CLASS(ABloqueLadrillo, AActor, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/BomberMan_012025"), NO_API) \
+	DECLARE_CLASS(ABloqueLadrillo, ABloque, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/BomberMan_012025"), NO_API) \
 	DECLARE_SERIALIZER(ABloqueLadrillo)
 
 
@@ -43,7 +39,6 @@ public: \
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloqueLadrillo_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_BomberMan_012025_Source_BomberMan_012025_BloqueLadrillo_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_BloqueLadrillo_h_15_INCLASS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_BloqueLadrillo_h_15_ENHANCED_CONSTRUCTORS \
 private: \

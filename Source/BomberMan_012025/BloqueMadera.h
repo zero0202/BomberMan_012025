@@ -3,39 +3,32 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Bloque.h"
 #include "BloqueMadera.generated.h"
 
-class UStaticMeshComponent;
-
-
+/**
+ * 
+ */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueMadera : public AActor
+class BOMBERMAN_012025_API ABloqueMadera : public ABloque
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
+public:
 	ABloqueMadera();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	UParticleSystemComponent* ParticleSystem;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 public:
+	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY()
-	UStaticMeshComponent* MeshBloqueMadera; 
+public:
 
 	bool bAbriendo;
 	float VelocidadMovimiento;
 	float DistanciaApertura; // Distancia máxima al abrir
 	FVector PosicionInicial; // Posición inicial
 
-
-	UFUNCTION(BlueprintCallable)
-	void AjustarTamanoMadera(FVector NuevoTamano);
 };

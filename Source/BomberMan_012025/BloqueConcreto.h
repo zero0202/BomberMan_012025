@@ -3,31 +3,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Bloque.h"
 #include "BloqueConcreto.generated.h"
 
-class UStaticMeshComponent;
-
-
+/**
+ * 
+ */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueConcreto : public AActor
+class BOMBERMAN_012025_API ABloqueConcreto : public ABloque
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
+public:
+
 	ABloqueConcreto();
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
+	UParticleSystemComponent* ParticleSystem;
 
-public:	
-	// Called every frame
+public:
+
 	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY()
-	UStaticMeshComponent* MeshBloqueConcreto;
-
-	void AjustarTamanoConcreto(FVector NuevoTamano);
 };

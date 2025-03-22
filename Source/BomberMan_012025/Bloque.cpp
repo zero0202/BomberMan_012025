@@ -4,7 +4,7 @@
 #include "Bloque.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
-
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 ABloque::ABloque()
@@ -15,7 +15,8 @@ ABloque::ABloque()
 	//Para la creacion de la malla 
 	MeshBloque = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshBloque"));
 	MeshBloque->SetupAttachment(RootComponent);
-
+	RootComponent = MeshBloque;
+	/* 
 	//static  solo pude existir una sola vez en una clase, se define un objeto estatico
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ObjetoMeshBloque(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_WideCapsule.Shape_WideCapsule'"));
 	if (ObjetoMeshBloque.Succeeded())
@@ -38,8 +39,10 @@ ABloque::ABloque()
 
 	// Inicializar variables para el movimiento del bloque
 	bPuedeMoverse = FMath::RandBool();
+	*/
 	// Establecer el tamaño inicial del bloque
 	AjustarTamano(FVector(2.8f, 2.8f, 2.8f));
+
 }
 
 // Called when the game starts or when spawned
@@ -54,6 +57,7 @@ void ABloque::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	/*
 	//para el movimiento
 	if (bPuedeMoverse)
 	{
@@ -68,6 +72,7 @@ void ABloque::Tick(float DeltaTime)
 
 		SetActorLocation(NewLocation);
 	}
+	*/
 }
 
 void ABloque::AjustarTamano(FVector NuevoTamano)

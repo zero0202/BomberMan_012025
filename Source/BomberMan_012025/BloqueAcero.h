@@ -3,33 +3,29 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Bloque.h"
 #include "BloqueAcero.generated.h"
 
-class UStaticMeshComponent;
-
+/**
+ * 
+ */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueAcero : public AActor
+class BOMBERMAN_012025_API ABloqueAcero : public ABloque
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
+public:
 	ABloqueAcero();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+	virtual void BeginPlay() override;
+	UParticleSystemComponent* ParticleSystem;
+
+public:
 	virtual void Tick(float DeltaTime) override;
+
 public:
 
-	UPROPERTY()
-	UStaticMeshComponent* MeshBloqueAcero;
-	  
 	float velocidad;
-	UFUNCTION(BlueprintCallable)
-	void AjustarTamanoAcero(FVector NuevoTamano);
 };

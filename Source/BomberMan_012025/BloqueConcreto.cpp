@@ -4,44 +4,45 @@
 #include "BloqueConcreto.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
-#include "BomberMan_012025Character.h"
-#include "Components/CapsuleComponent.h"
-#include "Engine/World.h"
+#include "Particles/ParticleSystemComponent.h"
 
-// Sets default values
 ABloqueConcreto::ABloqueConcreto()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	MeshBloqueConcreto = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshBloqueConcreto"));
-	RootComponent = MeshBloqueConcreto;
-
-	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshBloqueConcretoAsset(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
 	if (MeshBloqueConcretoAsset.Succeeded())
 	{
-		MeshBloqueConcreto->SetStaticMesh(MeshBloqueConcretoAsset.Object);
+		MeshBloque->SetStaticMesh(MeshBloqueConcretoAsset.Object);
 	}
 
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface> BloqueConcretoMaterialAsset(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Metal_Copper.M_Metal_Copper'"));
 	if (BloqueConcretoMaterialAsset.Succeeded())
 	{
-		MeshBloqueConcreto->SetMaterial(0, BloqueConcretoMaterialAsset.Object);
+		MeshBloque->SetMaterial(0, BloqueConcretoMaterialAsset.Object);
 	}
 
-	AjustarTamanoConcreto(FVector(2.7f, 2.7f, 2.7f));
+	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystem"));
+	ParticleSystem->SetupAttachment(RootComponent);
 
+	// Encontrar una partícula que simule vapor o niebla
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleSystemAsset(TEXT("/Game/StarterContent/Particles/P_Steam_Lit.P_Steam_Lit"));
+	if (ParticleSystemAsset.Succeeded())
+	{
+		ParticleSystem->SetTemplate(ParticleSystemAsset.Object);
+
+		// Escalar el sistema de partículas para que sea más grande
+		ParticleSystem->SetWorldScale3D(FVector(1.0f, 1.0f, 1.5f));
+	}
 
 }
 
-// Called when the game starts or when spawned
 void ABloqueConcreto::BeginPlay()
 {
 	Super::BeginPlay();
 
 }
-// Called every frame
+
 void ABloqueConcreto::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -60,9 +61,4 @@ void ABloqueConcreto::Tick(float DeltaTime)
 
 	SetActorLocation(NewLocation);
 
-}  
-
-void ABloqueConcreto::AjustarTamanoConcreto(FVector NuevoTamano)
-{
-	MeshBloqueConcreto->SetWorldScale3D(NuevoTamano);
 }

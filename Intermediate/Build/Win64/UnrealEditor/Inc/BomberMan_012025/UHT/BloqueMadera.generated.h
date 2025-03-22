@@ -14,16 +14,12 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_012025_BloqueMadera_generated_h
 
-#define FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execAjustarTamanoMadera);
-
-
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABloqueMadera(); \
 	friend struct Z_Construct_UClass_ABloqueMadera_Statics; \
 public: \
-	DECLARE_CLASS(ABloqueMadera, AActor, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/BomberMan_012025"), NO_API) \
+	DECLARE_CLASS(ABloqueMadera, ABloque, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/BomberMan_012025"), NO_API) \
 	DECLARE_SERIALIZER(ABloqueMadera)
 
 
@@ -43,7 +39,6 @@ public: \
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_INCLASS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_BloqueMadera_h_15_ENHANCED_CONSTRUCTORS \
 private: \

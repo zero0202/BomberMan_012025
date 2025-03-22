@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "BomberMan_012025GameMode.generated.h"
 
+
 UCLASS(minimalapi)
 class ABomberMan_012025GameMode : public AGameModeBase
 {
@@ -16,6 +17,15 @@ public:
 public:
 
 	virtual void BeginPlay() override;
+
+public:
+
+	UPROPERTY()
+	TArray<AActor*> BloquesA; // Guarda todos los bloques generados
+	TArray<TArray<int32>> MapaLaberinto; 
+
+
+	void GenerarLaberinto();
 
 };
 
