@@ -30,16 +30,35 @@ void ABomberMan_012025GameMode::BeginPlay()
     // Mapa del laberinto:
    // 0 = vacío, 1 = madera, 2 = ladrillo, 3 = concreto, 4 = acero
     MapaLaberinto = {
-        {4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
-        {4, 0, 1, 0, 1, 0, 2, 0, 1, 4},
-        {4, 1, 0, 0, 0, 0, 0, 1, 0, 4},
-        {4, 0, 0, 3, 0, 3, 0, 0, 0, 4},
-        {4, 1, 0, 0, 0, 0, 1, 0, 2, 4},
-        {4, 0, 0, 2, 0, 2, 0, 0, 0, 4},
-        {4, 1, 0, 0, 0, 0, 0, 1, 0, 4},
-        {4, 0, 0, 3, 0, 3, 0, 0, 0, 4},
-        {4, 2, 0, 0, 0, 0, 0, 2, 0, 4},
-        {4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
+    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
+    {4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4},
+    {4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4},
+    {4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4},
+    {4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4},
+    {4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4},
+    {4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4},
+    {4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4},
+    {4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4},
+    {4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4},
+    {4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4},
+    {4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4},
+    {4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4},
+    {4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4},
+    {4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4},
+    {4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4},
+    {4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4},
+    {4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4},
+    {4,0,1,0,1,0,1,0,1,2,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4},
+    {4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,2,1,0,0,0,4,0,4},
+    {4,0,1,0,4,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,2,0,4,0,4},
+    {4,0,4,4,4,0,3,4,4,0,4,4,2,4,2,4,4,2,0,1,1,0,2,4,4},
+    {4,2,4,0,2,0,1,0,1,0,4,4,1,0,0,1,0,1,1,0,0,0,0,0,4},
+    {4,0,1,0,1,0,2,0,1,0,4,0,0,0,4,0,0,1,0,0,0,0,1,0,4},
+    {4,0,2,0,4,0,4,0,4,4,4,0,2,0,4,2,4,1,0,2,2,4,4,0,4},
+    {4,2,4,0,4,0,1,0,1,0,4,4,0,0,1,0,2,0,1,0,4,2,2,0,4},
+    {4,0,4,0,2,0,0,4,0,0,0,2,2,0,1,0,0,4,4,4,0,1,1,0,4},
+    {4,0,4,0,4,0,0,2,2,0,0,0,0,0,1,0,0,4,0,4,0,0,1,0,4},
+    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
     };
     
     GenerarLaberinto();
@@ -118,15 +137,22 @@ void ABomberMan_012025GameMode::BeginPlay()
 
 void ABomberMan_012025GameMode::GenerarLaberinto()
 {
-    const float Espaciado = 300.0f; // Tamaño del espacio entre bloques
+    // Define el espacio entre bloques del laberinto
+    float Espaciado = 300.0f;
 
+    // Recorre cada fila del mapa del laberinto (eje Y)
     for (int32 Y = 0; Y < MapaLaberinto.Num(); ++Y)
     {
+        // Recorre cada columna dentro de la fila actual (eje X)
         for (int32 X = 0; X < MapaLaberinto[Y].Num(); ++X)
         {
+            // Obtiene el tipo de bloque que hay en la posición (Y, X)
             int32 Tipo = MapaLaberinto[Y][X];
-            if (Tipo == 0) continue; // espacio vacío
 
+            // Si el tipo es 0, se considera espacio vacío y no se genera nada
+            if (Tipo == 0) continue; 
+
+            //creacion directamente desde que se genera x y y,
             FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
             FRotator Rotacion = FRotator::ZeroRotator;
             TSubclassOf<AActor> ClaseBloque = nullptr;
@@ -145,7 +171,8 @@ void ABomberMan_012025GameMode::GenerarLaberinto()
                 AActor* BloqueSpawned = GetWorld()->SpawnActor<AActor>(ClaseBloque, Posicion, Rotacion);
                 if (BloqueSpawned)
                 {
-                    BloquesA.Add(BloqueSpawned); // Por si los quieres mover más tarde
+              
+                    BloquesA.Add(BloqueSpawned); // Guarda el bloque en un array para acceso futuro
                 }
             }
         }

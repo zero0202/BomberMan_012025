@@ -30,5 +30,4 @@ public:
 	float amplitud;
 	float PosicionInicial;
 
-
 };

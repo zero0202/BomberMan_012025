@@ -58,6 +58,10 @@ void ABomberMan_012025Character::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	// Cambiar ubicación al comenzar
+	FVector NuevaPosicion(2470.0f, 4500.0f, 1250.0f); // X, Y, Z (ajusta esto según tu escenario)
+	SetActorLocation(NuevaPosicion);
 }
 
 //////////////////////////////////////////////////////////////////////////

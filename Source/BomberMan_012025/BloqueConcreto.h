@@ -26,4 +26,7 @@ protected:
 public:
 
 	virtual void Tick(float DeltaTime) override;
+public:
+	bool bPuedeGirar;
+	float RotationSpeed;
 };

@@ -27,5 +27,5 @@ public:
 
 public:
 
-	float velocidad;
+	//float velocidad;
 };

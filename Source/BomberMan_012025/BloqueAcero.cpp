@@ -25,7 +25,7 @@ ABloqueAcero::ABloqueAcero()
 
 	}
 
-	velocidad = 0.5f;
+	//velocidad = 0.5f;
 
 
 }
@@ -38,7 +38,7 @@ void ABloqueAcero::BeginPlay()
 void ABloqueAcero::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	/*
 	FVector NewLocation = GetActorLocation();
 	float TimeOffset = GetActorLocation().X * 4.0f;  // Desfase para efecto de ola
 
@@ -52,5 +52,5 @@ void ABloqueAcero::Tick(float DeltaTime)
 	NewLocation.Y += DeltaY; // Movimiento en Y
 
 	SetActorLocation(NewLocation);
-
+	*/
 }
