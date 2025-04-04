@@ -34,7 +34,8 @@ public:
 	//float RotationSpeed;
 	//bool bPuedeMoverse;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bloque")
+	bool bDestruible = true;
 	//funcion para cambiar el tamaño del bloque
 	UFUNCTION(BlueprintCallable)
 

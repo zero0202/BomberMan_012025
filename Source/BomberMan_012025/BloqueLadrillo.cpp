@@ -23,6 +23,8 @@ ABloqueLadrillo::ABloqueLadrillo()
 		MeshBloque->SetMaterial(0, ObjetoBloqueLadrilloMaterial.Object);
 	}
 
+	bDestruible = true;
+	PuedeSubir = true;
 	// Inicializar variables
 	velocidad = 1.0f; // Velocidad de movimiento
 	amplitud = 500.0f;   // Distancia maxima de apertura
@@ -43,19 +45,24 @@ void ABloqueLadrillo::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Calcular la nueva posición en el eje Z
-	FVector NewLocation = GetActorLocation();
-	float Tiempo = GetWorld()->GetTimeSeconds(); // Tiempo actual del juego
-
-	// Movimiento oscilatorio en el eje Z (arriba y abajo, pero no baja de 5.0f)
-	float Oscilacion = FMath::Sin(Tiempo * velocidad) * amplitud;
+	if (PuedeSubir){
 	
-	// Movimiento oscilatorio en el eje Z (arriba y abajo)
-	NewLocation.Z = FMath::Max(PosicionInicial + Oscilacion, 5.0f);
+		// Calcular la nueva posición en el eje Z
+		FVector NewLocation = GetActorLocation();
+		float Tiempo = GetWorld()->GetTimeSeconds(); // Tiempo actual del juego
 
-	// Actualizar la posición del actor
-	SetActorLocation(NewLocation);
+		// Movimiento oscilatorio en el eje Z (arriba y abajo, pero no baja de 5.0f)
+		float Oscilacion = FMath::Sin(Tiempo * velocidad) * amplitud;
+
+		// Movimiento oscilatorio en el eje Z (arriba y abajo)
+		NewLocation.Z = FMath::Max(PosicionInicial + Oscilacion, 5.0f);
+
+		// Actualizar la posición del actor
+		SetActorLocation(NewLocation);
+	
 
 
 
+	}
+	
 }

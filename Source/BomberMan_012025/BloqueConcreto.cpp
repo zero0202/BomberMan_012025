@@ -34,6 +34,7 @@ ABloqueConcreto::ABloqueConcreto()
 		// Escalar el sistema de partículas para que sea más grande
 		ParticleSystem->SetWorldScale3D(FVector(1.0f, 1.0f, 1.5f));
 	}
+	bDestruible = true;
 
 	bPuedeGirar = true; // Se asignará desde el GameMode
 	RotationSpeed = 50.0f; // Velocidad de rotación por defecto

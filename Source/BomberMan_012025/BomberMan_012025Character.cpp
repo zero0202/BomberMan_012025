@@ -10,6 +10,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "InputMappingContext.h"// para mapear el boton de la bomba
+#include "InputAction.h"// para mapear el boton de la bomba
+#include "Bomba.h"//bomba
+
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -18,6 +22,16 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 ABomberMan_012025Character::ABomberMan_012025Character()
 {
+	// Crear InputAction en tiempo de ejecución
+	ColocarBombaAction = NewObject<UInputAction>(this, TEXT("ColocarBombaAction"));
+	if (ColocarBombaAction)
+	{
+		ColocarBombaAction->ValueType = EInputActionValueType::Boolean;
+	}
+	// Asignar clase bomba por defecto (solo si no usas Blueprint)
+	ClaseBomba = ABomba::StaticClass();
+	  
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -59,9 +73,37 @@ void ABomberMan_012025Character::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	// codigo de bomba y boton
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		if (ULocalPlayer* LocalPlayer = PC->GetLocalPlayer())
+		{
+			if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
+			{
+				UInputMappingContext* MappingContext = NewObject<UInputMappingContext>();
+
+				//  Mapeo correcto sin acceder a 'Mappings' directamente
+				MappingContext->MapKey(ColocarBombaAction, EKeys::E);
+				// para cambiar el boton de dejar la bomba
+
+				Subsystem->AddMappingContext(MappingContext, 0);
+			}
+		}
+	}
+
 	// Cambiar ubicación al comenzar
 	FVector NuevaPosicion(2470.0f, 4500.0f, 1250.0f); // X, Y, Z (ajusta esto según tu escenario)
 	SetActorLocation(NuevaPosicion);
+}
+// para colocar la bomba
+void ABomberMan_012025Character::ColocarBomba()
+{
+	if (ClaseBomba)
+	{
+		FVector Pos = GetActorLocation();
+		Pos.Z = 0.0f;
+		GetWorld()->SpawnActor<ABomba>(ClaseBomba, Pos, FRotator::ZeroRotator);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -90,6 +132,10 @@ void ABomberMan_012025Character::SetupPlayerInputComponent(UInputComponent* Play
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABomberMan_012025Character::Look);
+		
+		// Colocar Bomba
+		EnhancedInputComponent->BindAction(ColocarBombaAction, ETriggerEvent::Started, this, &ABomberMan_012025Character::ColocarBomba);
+
 	}
 	else
 	{

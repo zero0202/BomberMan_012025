@@ -29,4 +29,5 @@ public:
 public:
 	bool bPuedeGirar;
 	float RotationSpeed;
+
 };

@@ -10,6 +10,7 @@ ABloqueAcero::ABloqueAcero()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ObjetoMeshBloqueAcero(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
 	if (ObjetoMeshBloqueAcero.Succeeded())
 	{
@@ -26,7 +27,7 @@ ABloqueAcero::ABloqueAcero()
 	}
 
 	//velocidad = 0.5f;
-
+	bDestruible = false;
 
 }
 

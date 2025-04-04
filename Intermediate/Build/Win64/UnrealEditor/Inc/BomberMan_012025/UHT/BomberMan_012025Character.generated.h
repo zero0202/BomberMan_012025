@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_012025_BomberMan_012025Character_generated_h
 
-#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_21_INCLASS_NO_PURE_DECLS \
+#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_23_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABomberMan_012025Character(); \
 	friend struct Z_Construct_UClass_ABomberMan_012025Character_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(ABomberMan_012025Character)
 
 
-#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_21_ENHANCED_CONSTRUCTORS \
+#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ABomberMan_012025Character(ABomberMan_012025Character&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~ABomberMan_012025Character();
 
 
-#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_18_PROLOG
-#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_21_GENERATED_BODY \
+#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_20_PROLOG
+#define FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_23_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_21_INCLASS_NO_PURE_DECLS \
-	FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_21_ENHANCED_CONSTRUCTORS \
+	FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_23_INCLASS_NO_PURE_DECLS \
+	FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025Character_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

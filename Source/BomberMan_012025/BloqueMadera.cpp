@@ -31,6 +31,8 @@ ABloqueMadera::ABloqueMadera()
 	PosicionInicial = FVector::ZeroVector; // Se inicializará en BeginPlay
 
 
+	bDestruible = true;
+
 }
 
 void ABloqueMadera::BeginPlay()
