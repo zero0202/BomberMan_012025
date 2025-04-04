@@ -84,10 +84,10 @@ AEnemigoSubTerraneo::~AEnemigoSubTerraneo() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubTerraneo_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AEnemigoSubTerraneo, AEnemigoSubTerraneo::StaticClass, TEXT("AEnemigoSubTerraneo"), &Z_Registration_Info_UClass_AEnemigoSubTerraneo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AEnemigoSubTerraneo), 3958714860U) },
+		{ Z_Construct_UClass_AEnemigoSubTerraneo, AEnemigoSubTerraneo::StaticClass, TEXT("AEnemigoSubTerraneo"), &Z_Registration_Info_UClass_AEnemigoSubTerraneo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AEnemigoSubTerraneo), 863869103U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubTerraneo_h_3838198424(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubTerraneo_h_4046228899(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubTerraneo_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubTerraneo_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

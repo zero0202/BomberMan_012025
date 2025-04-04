@@ -26,7 +26,20 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UParticleSystemComponent* ParticulasArena;
+	// Tiempo de la animación de hundimiento
 	float TiempoArena;
+
+	// Tiempo para hundirse completamente
+	float TiempoHundimiento;
+
+	// Almacena la posición inicial del bloque
 	FVector PosicionInicial;
+
+	// Para controlar si el bloque está hundido o no
+	bool bEstaHundido;
+
+	// Función para detectar la colisión con el personaje
+	UFUNCTION()
+	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 };

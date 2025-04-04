@@ -13,7 +13,13 @@
 #include "BloqueConcreto.h"
 #include "BloqueArena.h"
 #include "BloqueLava.h"
+#include "BloqueElectrico.h"
+#include "BloquePegajoso.h"
+#include "BloqueHielo.h"
+#include "BloqueHongo.h"
 #include "Teletransportador.h"
+#include "EnemigoAereoTransportador.h"
+#include "EnemigoAereoPatrullero.h"
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
@@ -43,123 +49,78 @@ void ABomberMan_012025GameMode::BeginPlay()
 
     Compuerta1->SetGameMode(this);
     Compuerta2->SetGameMode(this);
-
+   
 
     // Mapa del laberinto:
-   // 0 = vacío, 1 = madera, 2 = ladrillo, 3 = concreto, 4 = acero 5 = lava, 6 = arena
+   // 0 = vacío, 1 = madera, 2 = ladrillo, 3 = concreto, 4 = acero 5 = lava, 6 = arena, 7 = electrico, 8 = pegajoso, 9 = hielo, 10 = hongo
     MapaLaberinto = {
-    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,5},
-    {4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4},
-    {4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4},
-    {4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4},
-    {4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4},
-    {4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4},
-    {4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4},
-    {4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4},
-    {4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4},
-    {4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4},
-    {4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4},
-    {4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4},
-    {4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4},
-    {4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4},
-    {4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4},
-    {4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4},
-    {4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4}, 
-    {4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4},
-    {4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4},
-    {4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,4,0,4},
-    {4,0,1,0,4,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,2,0,4,0,4},
-    {4,0,4,4,4,0,3,4,4,0,4,4,2,4,2,4,4,2,0,1,1,0,2,4,4},
-    {4,2,4,0,2,0,1,0,1,0,4,4,1,0,0,1,0,1,1,0,0,0,0,0,4},
-    {4,0,1,0,1,0,2,0,1,0,4,0,0,0,4,0,0,1,0,0,0,0,1,0,4},
-    {4,0,2,0,4,0,4,0,4,4,4,0,2,0,4,2,4,1,0,2,2,4,4,0,4},
-    {4,2,4,0,4,0,1,0,1,0,4,4,0,0,1,0,2,0,1,0,4,2,2,0,4},
-    {4,0,4,0,2,0,0,4,0,0,0,2,2,0,1,0,0,4,4,4,0,1,1,0,4},
-    {4,0,4,0,4,0,0,2,2,0,0,0,0,0,1,0,0,4,0,4,0,0,1,0,4},
-    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
-    };
+{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
+{4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4,4,0,0,0,0,4,0,7,7,0,0,4,0,7,0,4,0,0,0,7,0,7,7,0,4},
+{4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4,4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,7,0,0,2,0,4},
+{4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,7,7,7,0,4},
+{4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4,4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4},
+{4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4,4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,8,8,8,0,4},
+{4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4,4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4},
+{4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4,4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,9,9,9,9,9,9,0,4},
+{4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4,4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,9,9,10,0,0,0,1,0,4},
+{4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4,4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,9,0,0,1,0,2,0,4},
+{4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4,4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4},
+{4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4,4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4},
+{4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4,4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4},
+{4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4,4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4},
+{4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4,4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4},
+{4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4,4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4},
+{4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4,4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4},
+{4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4,4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4},
+{4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4,4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4},
+{4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,4,0,4,4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,4,0,4},
+{4,0,1,0,4,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,2,0,4,0,4,4,0,1,0,4,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,2,0,4,0,4},
+{4,0,4,4,4,0,3,4,4,0,4,4,2,4,2,4,4,2,0,1,1,0,2,4,4,4,0,4,4,4,0,3,4,4,0,4,4,2,4,2,4,4,2,0,1,1,0,2,4,4},
+{4,2,4,0,2,0,1,0,1,0,4,4,1,0,0,1,0,1,1,0,0,0,0,0,4,4,2,4,0,2,0,1,0,1,0,4,4,1,0,0,1,0,1,1,0,0,0,0,0,4},
+{4,0,1,0,1,0,2,0,1,0,4,0,0,0,4,0,0,1,0,0,0,0,1,0,4,4,0,1,0,1,0,2,0,1,0,4,0,0,0,4,0,0,1,0,0,0,0,1,0,4},
+{4,0,2,0,4,0,4,0,4,4,4,0,2,0,4,2,4,1,0,2,2,4,4,0,4,4,0,2,0,4,0,4,0,4,4,4,0,2,0,4,2,4,1,0,2,2,4,4,0,4},
+{4,2,4,0,4,0,1,0,1,0,4,4,0,0,1,0,2,0,1,0,4,2,2,0,4,4,2,4,0,4,0,1,0,1,0,4,4,0,0,1,0,2,0,1,0,4,2,2,0,4},
+{4,0,4,0,2,0,0,4,0,0,0,2,2,0,1,0,0,4,4,4,0,1,1,0,4,4,0,4,0,2,0,0,4,0,0,0,2,2,0,1,0,0,4,4,4,0,1,1,0,4},
+{4,0,4,0,4,0,0,2,2,0,0,0,0,0,1,0,0,4,0,4,0,0,1,0,4,4,0,4,0,4,0,0,2,2,0,0,0,0,0,1,0,0,4,0,4,0,0,1,0,4},
+{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
+{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
+{4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4,4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4},
+{4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4,4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4},
+{4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4},
+{4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4,4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4},
+{4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4,4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4},
+{4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4,4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4},
+{4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4,4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4},
+{4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4,4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4},
+{4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4,4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4},
+{4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4,4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4},
+{4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4,4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4},
+{4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4,4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4},
+{4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4,4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4},
+{4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4,4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4},
+{4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4,4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4},
+{4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4,4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4},
+{4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4,4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4},
+{4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4,4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4},
+{4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,0,0,4,4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,4,0,4},
+{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
+};
      
     GenerarLaberinto();
-
-    /*
-    //PARA BLOQUE Y MURO INTERCALADOS
-    GEngine->AddOnScreenDebugMessage(-1, -1, FColor::Red, TEXT("Generando bloques y muros intercalados"));
-
-    const int totalBloques = 6; // Número total de bloques
-    const int totalMuros = 6;   // Número total de muros
-    const float espacio = 600.0f; // Espacio entre elementos
-
-    TArray<ABloque*> BloquesArray;
-    TArray<AMuro*> MurosArray;
-
-
-    int bloqueCount = 0;
-    int muroCount = 0;
-
-    for (int i = 0; i < 2; i++)
-    {
-        for (int j = 0; j < 6; j++) 
-        {
-            FVector posicion(900.0f + j * espacio, 6000.0f - i * espacio, 5.0f);
-            if ((i + j) % 2 == 0 && bloqueCount < totalBloques)
-            {
-                ABloque* Bloque = GetWorld()->SpawnActor<ABloque>(ABloque::StaticClass(), posicion, FRotator(0.0f, 0.0f, 0.0f));
-                if (Bloque)
-                {
-                    BloquesArray.Add(Bloque);
-                }
-                bloqueCount++;
-
-            }
-            else if (muroCount < totalMuros)
-            {
-                AMuro* Muro = GetWorld()->SpawnActor<AMuro>(AMuro::StaticClass(), posicion, FRotator(0.0f, 0.0f, 0.0f));
-				if (Muro)
-				{
-					MurosArray.Add(Muro);
-				}
-                muroCount++;
-            }
-        }
-    }
-    */
-    /*
-    // Asignar dos bloques para moverse 
-    if (BloquesArray.Num() >= 2)
-    {
-        BloquesArray[0]->bPuedeMoverse = true;
-        BloquesArray[1]->bPuedeMoverse = true;
-        BloquesArray[2]->bPuedeMoverse = true;
-    }
-    */
-    /*
-    // Asignar dos muros para girar
-    if (MurosArray.Num() >= 2)
-    {
-        MurosArray[0]->bPuedeGirar = true;
-        MurosArray[1]->bPuedeGirar = true;
-    }
-
-    //CREAR BLOQUES
-
-	GetWorld()->SpawnActor < ABloqueLadrillo >(ABloqueLadrillo::StaticClass(),FVector(1000.0f, 500.0f, 5.0f), FRotator(0.0f, 0.0f, 0.0f));
-	GetWorld()->SpawnActor < ABloqueMadera >(ABloqueMadera::StaticClass(), FVector(1000.0f, 500.0f, 5.0f), FRotator(0.0f, 0.0f, 0.0f));
-	GetWorld()->SpawnActor < ABloqueConcreto >(ABloqueConcreto::StaticClass(), FVector(1000.0f, 500.0f, 5.0f), FRotator(0.0f, 0.0f, 0.0f));
-	GetWorld()->SpawnActor < ABloqueAcero >(ABloqueAcero::StaticClass(), FVector(1000.0f, 500.0f, 5.0f), FRotator(0.0f, 0.0f, 0.0f));
-    */
+    SpawnEnemigosAereos();
 
 	//temporizador para eliminar bloque administrador de tiempo
-	GetWorld()->GetTimerManager().SetTimer(TimerEliminarBloque, this, &ABomberMan_012025GameMode::EliminarBloque, 5.0f, true);
+	GetWorld()->GetTimerManager().SetTimer(TimerEliminarBloque, this, &ABomberMan_012025GameMode::EliminarBloque, 3.0f, true);
 }
 
 
 void ABomberMan_012025GameMode::GenerarLaberinto()
 {
 
-    //int32 Filas = MapaLaberinto.Num();              // = 27
-    //int32 Columnas = MapaLaberinto[0].Num();        // = 25
+    //int32 Filas = MapaLaberinto.Num();              // = 50
+    //int32 Columnas = MapaLaberinto[0].Num();        // = 50
     // Define el espacio entre bloques del laberinto
-    float Espaciado = 300.0f;
+    float Espaciado = 900.0f;
 
     //las filas y columnas se estan creando directamente se derivan automaticamente 
     // El tamaño lo decide el contenido del array.
@@ -175,7 +136,13 @@ void ABomberMan_012025GameMode::GenerarLaberinto()
             int32 Tipo = MapaLaberinto[Y][X];
 
             // Si el tipo es 0, se considera espacio vacío y no se genera nada
-            if (Tipo == 0) continue; 
+            if (Tipo == 0) {
+            
+                FVector PosicionLibre = FVector(X * Espaciado, Y * Espaciado, 500.0f); // ajusta altura si deseas
+                PuntosPatrullaLibres.Add(PosicionLibre);
+                continue;
+
+            }
 
             //creacion directamente desde que se genera x y y, en la pocion 0 0 0 por defecto
             FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
@@ -190,7 +157,10 @@ void ABomberMan_012025GameMode::GenerarLaberinto()
             case 4: ClaseBloque = ABloqueAcero::StaticClass(); break;
 			case 5: ClaseBloque = ABloqueLava::StaticClass(); break;
 			case 6: ClaseBloque = ABloqueArena::StaticClass(); break;
-
+			case 7: ClaseBloque = ABloqueElectrico::StaticClass(); break;
+			case 8: ClaseBloque = ABloquePegajoso::StaticClass(); break;
+			case 9: ClaseBloque = ABloqueHielo::StaticClass(); break;
+			case 10: ClaseBloque = ABloqueHongo::StaticClass(); break;
             default: break;
             }
 
@@ -211,20 +181,6 @@ void ABomberMan_012025GameMode::GenerarLaberinto()
 
 void ABomberMan_012025GameMode::EliminarBloque()
 {
-    /*
-    //seleccionar aleatoriamente un bloque  del array bloques para su eliminacion
-   int  numeroBloques = BloquesA.Num();
-   int numeroAleatorio = FMath::RandRange(1, numeroBloques);
-   if (BloquesA.Num() > 0)
-   {
-	   BloqueActual = (BloquesA[numeroAleatorio]);
-       if (BloqueActual)
-       {
-           BloqueActual -> Destroy();
-       }
-
-   }
-	*/
     // Crear un array temporal con solo bloques que se pueden eliminar (NO de acero)
     TArray<ABloque*> BloquesEliminables;
 
@@ -251,6 +207,24 @@ void ABomberMan_012025GameMode::EliminarBloque()
             BloqueActual->Destroy();
             BloquesA.Remove(BloqueActual); // Opcional: para que no lo intentes eliminar otra vez
         }
+    }
+}
+
+void ABomberMan_012025GameMode::SpawnEnemigosAereos()
+{
+
+    AEnemigoAereoTransportador* T1 = GetWorld()->SpawnActor<AEnemigoAereoTransportador>(AEnemigoAereoTransportador::StaticClass());
+
+    AEnemigoAereoPatrullero* Patrullero = GetWorld()->SpawnActor<AEnemigoAereoPatrullero>(
+        AEnemigoAereoPatrullero::StaticClass(),
+        PuntosPatrullaLibres[0], // posición inicial
+        FRotator::ZeroRotator
+    );
+
+    // Le pasamos todos los puntos libres
+    if (Patrullero)
+    {
+        Patrullero->PuntosPatrulla = PuntosPatrullaLibres;
     }
 }
 

@@ -9,10 +9,17 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class AActor;
+class UPrimitiveComponent;
+struct FHitResult;
 #ifdef BOMBERMAN_012025_BloquePegajoso_generated_h
 #error "BloquePegajoso.generated.h already included, missing '#pragma once' in BloquePegajoso.h"
 #endif
 #define BOMBERMAN_012025_BloquePegajoso_generated_h
+
+#define FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execOnOverlapBegin);
+
 
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_15_INCLASS_NO_PURE_DECLS \
 private: \
@@ -39,6 +46,7 @@ public: \
 #define FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_15_INCLASS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_15_ENHANCED_CONSTRUCTORS \
 private: \

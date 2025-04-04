@@ -2,6 +2,13 @@
 
 
 #include "BloquePegajoso.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"  
+#include "Engine/Engine.h"
+
 
 ABloquePegajoso::ABloquePegajoso()
 {
@@ -23,6 +30,10 @@ ABloquePegajoso::ABloquePegajoso()
 
 	}
 
+	// Configurar la colisión
+	MeshBloque->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+	MeshBloque->OnComponentBeginOverlap.AddDynamic(this, &ABloquePegajoso::OnOverlapBegin);  // Detectar cuando empieza la colisión
+
 }
 
 void ABloquePegajoso::BeginPlay()
@@ -35,4 +46,33 @@ void ABloquePegajoso::Tick(float DeltaTime)
 {
 
 	Super::Tick(DeltaTime);
+}
+
+void ABloquePegajoso::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	// Verificar si el actor que colisiona es el personaje
+	ACharacter* Personaje = Cast<ACharacter>(OtherActor);
+	if (Personaje)
+	{
+		// Mostrar un mensaje en el log
+		UE_LOG(LogTemp, Warning, TEXT("Personaje pegado al bloque pegajoso"));
+
+		// Desactivar el movimiento del personaje (esto lo "pega" al bloque)
+		Personaje->GetCharacterMovement()->DisableMovement();
+
+		// Usar un temporizador para liberar al personaje después de 3 segundos
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ABloquePegajoso::LiberarPersonaje, 3.0f, false);
+	}
+}
+
+void ABloquePegajoso::LiberarPersonaje()
+{
+	// Obtener el personaje (si está pegado)
+	ACharacter* Personaje = Cast<ACharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	if (Personaje)
+	{
+		// Volver a activar el movimiento del personaje
+		Personaje->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+		UE_LOG(LogTemp, Warning, TEXT("Personaje liberado del bloque pegajoso"));
+	}
 }

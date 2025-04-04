@@ -14,4 +14,17 @@ class BOMBERMAN_012025_API AEnemigo : public ABomberMan_012025Character
 {
 	GENERATED_BODY()
 	
+public:
+
+	AEnemigo();
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+	//Malla visual simple
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Visual")
+	UStaticMeshComponent* MeshEnemigo;
 };

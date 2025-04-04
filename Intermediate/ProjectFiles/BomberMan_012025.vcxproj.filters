@@ -147,6 +147,18 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAereo.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereoPatrullero.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAereoPatrullero.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereoTransportador.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAereoTransportador.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubTerraneo.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>

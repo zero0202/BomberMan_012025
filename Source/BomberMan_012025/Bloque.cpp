@@ -41,7 +41,7 @@ ABloque::ABloque()
 	bPuedeMoverse = FMath::RandBool();
 	*/
 	// Establecer el tamaño inicial del bloque
-	AjustarTamano(FVector(2.8f, 2.8f, 2.8f));
+	AjustarTamano(FVector(9.0f, 9.0f, 13.0f));
 
 }
 

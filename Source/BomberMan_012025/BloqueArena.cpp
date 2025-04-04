@@ -6,6 +6,8 @@
 #include "Materials/MaterialInterface.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Particles/ParticleSystem.h"
+#include "GameFramework/Character.h"
+#include "Engine/Engine.h" 
 
 ABloqueArena::ABloqueArena()
 {
@@ -36,8 +38,14 @@ ABloqueArena::ABloqueArena()
 	{
 		ParticulasArena->SetTemplate(ArenaFX.Object);
 	}
+	// Configurar la colisión
+	MeshBloque->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+	MeshBloque->OnComponentBeginOverlap.AddDynamic(this, &ABloqueArena::OnOverlapBegin);  // Detectar cuando empieza la colisión
+
 
 	TiempoArena = 0.f;
+	TiempoHundimiento = 0.f;
+	bEstaHundido = false;
 }
 
 void ABloqueArena::BeginPlay()
@@ -53,9 +61,9 @@ void ABloqueArena::Tick(float DeltaTime)
 
 	TiempoArena += DeltaTime;
 
-	// Movimiento suave y constante tipo onda senoidal (como si "respirara arena")
-	float Amplitud = 5.0f;          // Qué tanto sube/baja
-	float Frecuencia = 3.5f;        // Qué tan rápido sube/baja
+	// Movimiento suave tipo onda senoidal (como si "respirara arena")
+	float Amplitud = 5.0f;
+	float Frecuencia = 3.5f;
 
 	float DesplazamientoZ = FMath::Sin(TiempoArena * Frecuencia) * Amplitud;
 
@@ -64,4 +72,36 @@ void ABloqueArena::Tick(float DeltaTime)
 
 	SetActorLocation(NuevaPos);
 
+	// Si el bloque está hundido, moverlo hacia abajo
+	if (bEstaHundido)
+	{
+		TiempoHundimiento += DeltaTime;
+		float DesplazamientoHundido = FMath::Lerp(0.f, -50.f, TiempoHundimiento / 3.f);  // Hundir 50 unidades hacia abajo en 3 segundos
+		FVector NuevaPosHundido = PosicionInicial;
+		NuevaPosHundido.Z += DesplazamientoHundido;
+
+		SetActorLocation(NuevaPosHundido);
+
+		// Una vez que el bloque haya llegado al fondo, evitar más movimiento
+		if (TiempoHundimiento >= 3.f)
+		{
+			bEstaHundido = false;  // El bloque dejó de hundirse
+		}
+	}
 }
+
+void ABloqueArena::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	// Verificar si el actor que colisiona es el personaje
+	ACharacter* Personaje = Cast<ACharacter>(OtherActor);
+	if (Personaje)
+	{
+		// Mostrar un mensaje en el log
+		UE_LOG(LogTemp, Warning, TEXT("¡Personaje tocó el bloque de arena!"));
+
+		// Iniciar el hundimiento
+		bEstaHundido = true;
+		TiempoHundimiento = 1.f;
+	}
+}
+

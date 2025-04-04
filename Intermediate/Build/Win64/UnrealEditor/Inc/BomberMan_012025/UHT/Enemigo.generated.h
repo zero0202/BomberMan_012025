@@ -24,8 +24,6 @@ public: \
 
 
 #define FID_BomberMan_012025_Source_BomberMan_012025_Enemigo_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AEnemigo(); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AEnemigo(AEnemigo&&); \

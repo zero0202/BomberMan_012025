@@ -14,6 +14,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_012025_EnemigoAereo_generated_h
 
+#define FID_BomberMan_012025_Source_BomberMan_012025_EnemigoAereo_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execAjustarTamanoA);
+
+
 #define FID_BomberMan_012025_Source_BomberMan_012025_EnemigoAereo_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAEnemigoAereo(); \
@@ -24,8 +28,6 @@ public: \
 
 
 #define FID_BomberMan_012025_Source_BomberMan_012025_EnemigoAereo_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AEnemigoAereo(); \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AEnemigoAereo(AEnemigoAereo&&); \
@@ -41,6 +43,7 @@ public: \
 #define FID_BomberMan_012025_Source_BomberMan_012025_EnemigoAereo_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_BomberMan_012025_Source_BomberMan_012025_EnemigoAereo_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_EnemigoAereo_h_15_INCLASS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_EnemigoAereo_h_15_ENHANCED_CONSTRUCTORS \
 private: \

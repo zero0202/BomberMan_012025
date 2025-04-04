@@ -81,6 +81,5 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Bombas")
 	TSubclassOf<ABomba> ClaseBomba;
-
 };
 

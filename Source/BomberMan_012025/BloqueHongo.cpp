@@ -2,6 +2,9 @@
 
 
 #include "BloqueHongo.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/Actor.h"
 
 ABloqueHongo::ABloqueHongo()
 {
@@ -20,6 +23,11 @@ ABloqueHongo::ABloqueHongo()
 		MeshBloque->SetMaterial(0, ObjetoBloqueAceroMaterial.Object);
 	}
 
+	// Configurar la colisión
+	MeshBloque->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+	MeshBloque->OnComponentBeginOverlap.AddDynamic(this, &ABloqueHongo::OnOverlapBegin);  // Detectar cuando empieza la colisión
+
+
 }
 void ABloqueHongo::BeginPlay()
 {
@@ -30,4 +38,17 @@ void ABloqueHongo::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ABloqueHongo::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	// Verificar si el actor que colisiona es el personaje
+	ACharacter* Personaje = Cast<ACharacter>(OtherActor);
+	if (Personaje)
+	{
+		// Aplicar una fuerza hacia arriba al personaje
+		Personaje->LaunchCharacter(FVector(0, 0, 10000), true, true); // Aplica una fuerza hacia arriba (ajustar el valor de 1000)
+		
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("¡Chocaste con el bloque hongo y saltaste hacia arriba!"));
+	}
 }

@@ -41,6 +41,11 @@ public:
 	UPROPERTY()
 	ATeletransportador* Compuerta2;
 
+
+	void SpawnEnemigosAereos();
+
+	TArray<FVector> PuntosPatrullaLibres;
+
 };
 
 
