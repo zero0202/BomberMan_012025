@@ -350,14 +350,14 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\Enemigo.h"/>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuatico.cpp">
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoMedusa.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAcuatico.h"/>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereo.cpp">
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoMedusa.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoSaltarin.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAereo.h"/>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoSaltarin.h"/>
     <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereoPatrullero.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -366,14 +366,22 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAereoTransportador.h"/>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubTerraneo.cpp">
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoEmboscador.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoSubTerraneo.h"/>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestre.cpp">
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoEmboscador.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoGolem.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestre.h"/>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoGolem.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestreExplosivo.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestreExplosivo.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestreTortuga.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestreTortuga.h"/>
     <ClCompile Include="..\..\Source\BomberMan_012025\Muro.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

@@ -106,6 +106,26 @@ void ABomberMan_012025Character::ColocarBomba()
 	}
 }
 
+float ABomberMan_012025Character::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	// Reducir salud del personaje
+	Health -= DamageAmount;
+
+	// Si la salud llega a 0 o menos, el personaje "muere"
+	if (Health <= 0)
+	{
+		// Realiza acciones adicionales como muerte o reinicio de juego
+		// Mostrar mensaje en pantalla
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("¡Has muerto!"));
+		}
+	}
+
+	// Retornar el daño aplicado
+	return DamageAmount;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 

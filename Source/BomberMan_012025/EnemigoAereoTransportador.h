@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EnemigoAereo.h"
+#include "Enemigo.h"
 #include "EnemigoAereoTransportador.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BOMBERMAN_012025_API AEnemigoAereoTransportador : public AEnemigoAereo
+class BOMBERMAN_012025_API AEnemigoAereoTransportador : public AEnemigo
 {
 	GENERATED_BODY()
-	
-	public:
+
+public:
 	AEnemigoAereoTransportador();
 
 protected:
@@ -23,28 +23,26 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
+	float VelocidadVuelo;
+	float AlturaFlotante;
+	float AlturaVuelo;
+
 	// Ruta circular
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movimiento")
-	float Radio = 10000.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movimiento")
-	float AlturaFlotante = 300.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movimiento")
-	float VelocidadAngular = 20.0f; // grados por segundo
-
-	UPROPERTY()
+	float Radio;
+	float VelocidadAngular ; // grados por segundo
+	float AnguloActual;
 	bool bPersonajeMontado;
 
 	UPROPERTY()
 	ACharacter* PersonajeActual; // para seguir su estado
-
 	// Verifica si el personaje sigue montado
 	void VerificarMontura();
-private:
-	float AnguloActual;
+	void Volar(float DeltaTime);
+	void SubirPersonaje(ACharacter* Personaje);
 
 
-	//UFUNCTION()
-	//void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,bool bFromSweep, const FHitResult& SweepResult);
+
 };

@@ -81,5 +81,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Bombas")
 	TSubclassOf<ABomba> ClaseBomba;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Health; // Salud del personaje
+
+	UFUNCTION()
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 };
 

@@ -135,16 +135,16 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\Enemigo.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuatico.cpp">
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoMedusa.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAcuatico.h">
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoMedusa.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereo.cpp">
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoSaltarin.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAereo.h">
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAcuaticoSaltarin.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoAereoPatrullero.cpp">
@@ -159,16 +159,28 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoAereoTransportador.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubTerraneo.cpp">
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoEmboscador.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoSubTerraneo.h">
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoEmboscador.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestre.cpp">
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoGolem.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestre.h">
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoSubterraneoGolem.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestreExplosivo.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestreExplosivo.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\EnemigoTerrestreTortuga.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestreTortuga.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\Muro.cpp">

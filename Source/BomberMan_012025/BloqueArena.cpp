@@ -14,10 +14,10 @@ ABloqueArena::ABloqueArena()
 	PrimaryActorTick.bCanEverTick = true;
 
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ObjetoMeshBloqueAcero(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
-	if (ObjetoMeshBloqueAcero.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ObjetoMeshBloqueArena(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
+	if (ObjetoMeshBloqueArena.Succeeded())
 	{
-		MeshBloque->SetStaticMesh(ObjetoMeshBloqueAcero.Object);
+		MeshBloque->SetStaticMesh(ObjetoMeshBloqueArena.Object);
 
 		MeshBloque->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	}
@@ -97,7 +97,7 @@ void ABloqueArena::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	if (Personaje)
 	{
 		// Mostrar un mensaje en el log
-		UE_LOG(LogTemp, Warning, TEXT("¡Personaje tocó el bloque de arena!"));
+		UE_LOG(LogTemp, Warning, TEXT("Personaje tocó el bloque de arena"));
 
 		// Iniciar el hundimiento
 		bEstaHundido = true;

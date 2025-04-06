@@ -4,10 +4,23 @@
 #include "EnemigoAereoPatrullero.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/Character.h"
+#include "Engine/World.h"
+
 
 AEnemigoAereoPatrullero::AEnemigoAereoPatrullero()
 {
-	PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = true;
+
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cylinder.Shape_Cylinder'"));
+    if (MeshAsset.Succeeded())
+    {
+        MeshEnemigo->SetStaticMesh(MeshAsset.Object);
+    }
+
 
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> ObjetoBloqueMaterial(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/EfectoF.EfectoF'"));
     if (ObjetoBloqueMaterial.Succeeded())
@@ -17,7 +30,7 @@ AEnemigoAereoPatrullero::AEnemigoAereoPatrullero()
     }
 
     // Encontrar una partícula que simule vapor o niebla
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleSystemAsset(TEXT("/Script/Engine.Material'/Game/StarterContent/Particles/Materials/M_Burst.M_Burst'"));
+    static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleSystemAsset(TEXT("/Script/Engine.ParticleSystem'/Game/StarterContent/Particles/P_Fire.P_Fire'"));
     if (ParticleSystemAsset.Succeeded())
     {
         ParticleSystem->SetTemplate(ParticleSystemAsset.Object);
@@ -25,16 +38,32 @@ AEnemigoAereoPatrullero::AEnemigoAereoPatrullero()
         // Escalar el sistema de partículas para que sea más grande
         ParticleSystem->SetWorldScale3D(FVector(2.0f, 3.0f, 3.5f));
     }
- 
 
-	IndiceActual = 0;
-	VelocidadPatrulla = 600.f;
+
+    // Inicializar la colisión
+    USphereComponent* ColliderComponent = CreateDefaultSubobject<USphereComponent>(TEXT("ColliderComponent"));
+    ColliderComponent->SetupAttachment(RootComponent);
+    ColliderComponent->InitSphereRadius(0.5f);  // Ajustar el tamaño de la esfera para detectar el personaje
+    ColliderComponent->SetCollisionProfileName(TEXT("Trigger"));  // Configura como Trigger para colisiones
+    ColliderComponent->OnComponentBeginOverlap.AddDynamic(this, &AEnemigoAereoPatrullero::OnComponentBeginOverlap); // Añadir el evento de colisión
+
+    AjustarTamano(FVector(3.0f, 3.0f, 1.5f));
+    GetCharacterMovement()->GravityScale = 0.0f;
+
+    IndiceActual = 0;
+    VelocidadPatrulla = 600.f;
+    AlturaVueloPa = 100;
+
 }
 
 void AEnemigoAereoPatrullero::BeginPlay()
 {
-	Super::BeginPlay();
-    // Si los puntos A y B no están seteados, se los calcula automáticamente
+    Super::BeginPlay();
+
+    // Establecer la posición inicial del enemigo
+    FVector PosicionInicialEnemigo = FVector(2440.0f, 4370.0f, 100.0f);  // Cambia estas coordenadas según lo que necesites
+    SetActorLocation(PosicionInicialEnemigo);
+    // Si los puntos de patrullaje están vacíos, añadir el punto inicial
     if (PuntosPatrulla.Num() == 0)
     {
         PuntosPatrulla.Add(GetActorLocation()); // Empieza desde la posición inicial
@@ -43,56 +72,43 @@ void AEnemigoAereoPatrullero::BeginPlay()
 
 void AEnemigoAereoPatrullero::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime); // mantiene altura
+    Super::Tick(DeltaTime); // mantiene altura
 
-    if (PuntosPatrulla.Num() == 0) return;
+    FVector Direccion = GetActorForwardVector();
+    FVector NuevaPos = GetActorLocation() + Direccion * VelocidadPatrulla * DeltaTime;
 
-    // Obtener el siguiente punto al que se mueve el enemigo
-    FVector Destino = PuntosPatrulla[IndiceActual];
-    FVector Direccion = (Destino - GetActorLocation()).GetSafeNormal();
-    FVector Movimiento = Direccion * VelocidadPatrulla * DeltaTime;
-
-    // Realizar un raycast para verificar que el camino esté libre
-    FHitResult HitResult;
-    FVector LineaFinal = GetActorLocation() + Movimiento;
-
-    // Realiza el raycast desde la posición actual hasta el destino
-    bool bHayObstaculo = GetWorld()->LineTraceSingleByChannel(HitResult, GetActorLocation(), LineaFinal, ECC_Visibility);
-
-    if (!bHayObstaculo) // Si no hay obstáculos, mueve el enemigo
+    if (EsEspacioLibre(NuevaPos))
     {
-        SetActorLocation(GetActorLocation() + Movimiento);
+        SetActorLocation(NuevaPos);
     }
     else
     {
-        // Si hay un obstáculo, el enemigo debe cambiar de dirección
         CambiarDireccion();
-    }
-
-    // Si el enemigo llega al destino, cambiar al siguiente punto
-    if (FVector::Dist(GetActorLocation(), Destino) < 100.f)
-    {
-        IndiceActual = (IndiceActual + 1) % PuntosPatrulla.Num(); // ciclo infinito
     }
 }
 
 void AEnemigoAereoPatrullero::CambiarDireccion()
 {
-    // Buscar un nuevo punto cercano disponible
-    TArray<FVector> PosiblesDirecciones;
+    float Angulo = FMath::RandRange(0, 3) * 90.0f; // 0, 90, 180, 270
+    SetActorRotation(FRotator(0, Angulo, 0));
+}
 
-    for (FVector PuntoLibre : PuntosPatrulla)
-    {
-        // Aseguramos que el punto no esté ocupado (es un espacio libre 0)
-        if (FVector::Dist(GetActorLocation(), PuntoLibre) > 5.0f) // Excluimos puntos muy cercanos
-        {
-            PosiblesDirecciones.Add(PuntoLibre);
-        }
-    }
+void AEnemigoAereoPatrullero::volarP(float DeltaTime)
+{
+    // Mueve suavemente el actor a la AlturaVuelo definida
+    FVector PosicionActual = GetActorLocation();
+    PosicionActual.Z = AlturaVueloPa;
 
-    if (PosiblesDirecciones.Num() > 0)
-    {
-        // Elegir una dirección aleatoria entre las posibles
-        IndiceActual = FMath::RandRange(0, PosiblesDirecciones.Num() - 1);
-    }
+    FVector NuevaPosicion = FMath::VInterpTo(GetActorLocation(), PosicionActual, DeltaTime, 2.0f);
+    SetActorLocation(NuevaPosicion);
+}
+
+void AEnemigoAereoPatrullero::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    // Verifica si el actor con el que colisionamos es el personaje
+    ABomberMan_012025Character* Personaje = Cast<ABomberMan_012025Character>(OtherActor);
+ 
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT(" choco con el patrullero"));
+
+ 
 }

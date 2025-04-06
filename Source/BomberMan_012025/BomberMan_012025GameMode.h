@@ -46,6 +46,21 @@ public:
 
 	TArray<FVector> PuntosPatrullaLibres;
 
+
+	//PRIMER_PARCIAL
+public:
+
+	//parte de la pregunta 1
+	void PosicionarJugadorAleatoriamente();
+	FTimerHandle TimerPosicion; // <- Agregalo junto a los otros timers
+	//----
+
+	//parte de la pregunta 2
+	FTimerHandle TimerReemplazoBloque; 
+	UFUNCTION()
+	void ReemplazarBloqueInterno(); 
+	
+
 };
 
 

@@ -3,15 +3,26 @@
 
 #include "EnemigoAereoTransportador.h"
 #include "Components/StaticMeshComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
 #include "Materials/MaterialInterface.h"
 
 AEnemigoAereoTransportador::AEnemigoAereoTransportador()
 {
 
 	PrimaryActorTick.bCanEverTick = true;
-	//para asignar textura al bloque
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Cylinder.Shape_Cylinder'"));
+	if (MeshAsset.Succeeded())
+	{
+		MeshEnemigo->SetStaticMesh(MeshAsset.Object);
+	}
+
+
+	//para asignar Material al bloque
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface> ObjetoBloqueMaterial(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Tech_Panel.M_Tech_Panel'"));
 	if (ObjetoBloqueMaterial.Succeeded())
 	{
@@ -19,25 +30,41 @@ AEnemigoAereoTransportador::AEnemigoAereoTransportador()
 
 	}
 
-	// Encontrar una partícula que simule vapor o niebla
+	// particula niebla
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleSystemAsset(TEXT("/Game/StarterContent/Particles/P_Steam_Lit.P_Steam_Lit"));
 	if (ParticleSystemAsset.Succeeded())
 	{
 		ParticleSystem->SetTemplate(ParticleSystemAsset.Object);
 
-		// Escalar el sistema de partículas para que sea más grande
-		ParticleSystem->SetWorldScale3D(FVector(100.0f, 100.0f, 100.5f));
+		// Escala para la particula
+		ParticleSystem->SetWorldScale3D(FVector(10.0f, 10.0f, 10.5f));
 	}
 
+	GetCharacterMovement()->GravityScale = 0.0f;
+	AjustarTamano(FVector(4.0f, 4.0f, 0.5f));
 
-	AnguloActual = 5000.0f;
+	VelocidadVuelo = 400.0f;
+	AlturaFlotante = 650.0f;
+	AlturaVuelo = 800.0f;
+	Radio = 13000.0f;
+	VelocidadAngular = 2.0f;
+	AnguloActual = 7000.0f;
+	bPersonajeMontado = false;
+
+	// Inicializar el collider para verificar las colisiones
+	USphereComponent* ColliderComponent = CreateDefaultSubobject<USphereComponent>(TEXT("ColliderComponent"));
+	ColliderComponent->SetupAttachment(RootComponent);
+	ColliderComponent->InitSphereRadius(200.0f);  // Ajustar el tamaño de la esfera para detectar el personaje
+	ColliderComponent->SetCollisionProfileName(TEXT("Trigger"));  // Configura como Trigger para colisiones
+	ColliderComponent->OnComponentBeginOverlap.AddDynamic(this, &AEnemigoAereoTransportador::OnComponentBeginOverlap);
+
 }
 
 void AEnemigoAereoTransportador::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+
 }
 
 void AEnemigoAereoTransportador::Tick(float DeltaTime)
@@ -50,13 +77,32 @@ void AEnemigoAereoTransportador::Tick(float DeltaTime)
 
 	float Radians = FMath::DegreesToRadians(AnguloActual);
 	FVector Centro = FVector(20000.0f, 8450.0f, AlturaFlotante); // centro del laberinto
-	FVector Posicion = Centro + FVector(FMath::Cos(Radians) * Radio, FMath::Sin(Radians) * Radio, 1500.0f);
+	FVector NPosicion = Centro + FVector(FMath::Cos(Radians) * Radio, FMath::Sin(Radians) * Radio, AlturaFlotante);
 
-	SetActorLocation(Posicion);
+	SetActorLocation(NPosicion);
 
+	// Si el personaje está montado, moverlo junto con el enemigo
+	if (bPersonajeMontado && PersonajeActual)
+	{
+		Volar(DeltaTime);
+	}
 	VerificarMontura();
 }
+void AEnemigoAereoTransportador::Volar(float DeltaTime)
+{
+	// Mueve suavemente el actor a la AlturaVuelo definida
+	FVector PosicionActual = GetActorLocation();
+	PosicionActual.Z = AlturaVuelo;
 
+	// Aumentar la altura del enemigo cuando el personaje está montado
+	if (bPersonajeMontado)
+	{
+		PosicionActual.Z += 500.0f;  // Sube aún más cuando el personaje está montado
+	}
+
+	FVector NuevaPosicion = FMath::VInterpTo(GetActorLocation(), PosicionActual, DeltaTime, 1.0f);
+	SetActorLocation(NuevaPosicion);
+}
 void AEnemigoAereoTransportador::VerificarMontura()
 {
 	if (!bPersonajeMontado || !PersonajeActual) return;
@@ -72,7 +118,22 @@ void AEnemigoAereoTransportador::VerificarMontura()
 		PersonajeActual = nullptr;
 	}
 }
+void AEnemigoAereoTransportador::OnComponentBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	// Verifica si el actor con el que colisionamos es el personaje
+	ABomberMan_012025Character* Personaje = Cast<ABomberMan_012025Character>(OtherActor);
+	if (Personaje && !bPersonajeMontado)
+	{
+		SubirPersonaje(Personaje);
+	}
+}
+void AEnemigoAereoTransportador::SubirPersonaje(ACharacter* Personaje)
+{
+	PersonajeActual = Personaje;
+	bPersonajeMontado = true;
 
+	// Mover el personaje a la posición del enemigo y mantenerlo en la misma altura de vuelo
+	//PersonajeActual->SetActorLocation(GetActorLocation() + FVector(0, 0, AlturaVuelo));
 
-
-
+	//PersonajeActual->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+}

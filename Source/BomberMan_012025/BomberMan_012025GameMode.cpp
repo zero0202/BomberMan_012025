@@ -4,6 +4,7 @@
 #include "BomberMan_012025Character.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 #include "Engine/Engine.h"
 #include "Bloque.h"
 #include "Muro.h"
@@ -20,6 +21,12 @@
 #include "Teletransportador.h"
 #include "EnemigoAereoTransportador.h"
 #include "EnemigoAereoPatrullero.h"
+#include "EnemigoTerrestreExplosivo.h"
+#include "EnemigoTerrestreTortuga.h"
+#include "EnemigoSubterraneoGolem.h"
+#include "EnemigoSubterraneoEmboscador.h"
+#include "EnemigoAcuaticoSaltarin.h"
+#include "EnemigoAcuaticoMedusa.h" 
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
@@ -111,6 +118,16 @@ void ABomberMan_012025GameMode::BeginPlay()
 
 	//temporizador para eliminar bloque administrador de tiempo
 	GetWorld()->GetTimerManager().SetTimer(TimerEliminarBloque, this, &ABomberMan_012025GameMode::EliminarBloque, 3.0f, true);
+
+
+    //Parte de la pregunta 1
+    // ✅ Timer para posicionar aleatoriamente al jugador luego de generar el laberinto
+    //GetWorld()->GetTimerManager().SetTimer(TimerPosicion,this, &ABomberMan_012025GameMode::PosicionarJugadorAleatoriamente,0.1f,false);
+        //--------------------------------
+        //Parte de la pregunta 2
+   
+    GetWorld()->GetTimerManager().SetTimer(TimerReemplazoBloque,this,&ABomberMan_012025GameMode::ReemplazarBloqueInterno,1.0f,true);
+
 }
 
 
@@ -138,9 +155,9 @@ void ABomberMan_012025GameMode::GenerarLaberinto()
             // Si el tipo es 0, se considera espacio vacío y no se genera nada
             if (Tipo == 0) {
             
-                FVector PosicionLibre = FVector(X * Espaciado, Y * Espaciado, 500.0f); // ajusta altura si deseas
-                PuntosPatrullaLibres.Add(PosicionLibre);
-                continue;
+               FVector PosicionLibre = FVector(X * Espaciado, Y * Espaciado, 500.0f); // ajusta altura si deseas
+               PuntosPatrullaLibres.Add(PosicionLibre);
+               continue;
 
             }
 
@@ -210,21 +227,140 @@ void ABomberMan_012025GameMode::EliminarBloque()
     }
 }
 
+
 void ABomberMan_012025GameMode::SpawnEnemigosAereos()
 {
 
-    AEnemigoAereoTransportador* T1 = GetWorld()->SpawnActor<AEnemigoAereoTransportador>(AEnemigoAereoTransportador::StaticClass());
+    if (PuntosPatrullaLibres.Num() < 8) return;
 
-    AEnemigoAereoPatrullero* Patrullero = GetWorld()->SpawnActor<AEnemigoAereoPatrullero>(
-        AEnemigoAereoPatrullero::StaticClass(),
-        PuntosPatrullaLibres[0], // posición inicial
-        FRotator::ZeroRotator
-    );
+    TArray<FVector> PosicionesUsadas;
+    auto ObtenerPosicionAleatoria = [&]() -> FVector
+        {
+            FVector Posicion;
+            do
+            {
+                Posicion = PuntosPatrullaLibres[FMath::RandRange(0, PuntosPatrullaLibres.Num() - 1)];
+            } while (PosicionesUsadas.Contains(Posicion));
 
-    // Le pasamos todos los puntos libres
+            PosicionesUsadas.Add(Posicion);
+            return Posicion;
+        };
+
+    // Spawnear 5 enemigos aleatorios en posiciones vacías
+    GetWorld()->SpawnActor<AEnemigoTerrestreExplosivo>(AEnemigoTerrestreExplosivo::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
+    GetWorld()->SpawnActor<AEnemigoAcuaticoSaltarin>(AEnemigoAcuaticoSaltarin::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
+    GetWorld()->SpawnActor<AEnemigoAcuaticoMedusa>(AEnemigoAcuaticoMedusa::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
+    GetWorld()->SpawnActor<AEnemigoSubterraneoEmboscador>(AEnemigoSubterraneoEmboscador::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
+    GetWorld()->SpawnActor<AEnemigoSubterraneoGolem>(AEnemigoSubterraneoGolem::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
+
+    // Spawnear 3 enemigos en posiciones fijas
+    GetWorld()->SpawnActor<AEnemigoAereoTransportador>(AEnemigoAereoTransportador::StaticClass(), FVector(2000, 2000, 300), FRotator::ZeroRotator);
+    GetWorld()->SpawnActor<AEnemigoTerrestreTortuga>(AEnemigoTerrestreTortuga::StaticClass(), FVector(3000, 3000, 100), FRotator::ZeroRotator);
+    AEnemigoAereoPatrullero* Patrullero = GetWorld()->SpawnActor<AEnemigoAereoPatrullero>(AEnemigoAereoPatrullero::StaticClass(), FVector(4000, 4000, 300), FRotator::ZeroRotator);
+
     if (Patrullero)
     {
         Patrullero->PuntosPatrulla = PuntosPatrullaLibres;
     }
 }
+/*
+void ABomberMan_012025GameMode::PosicionarJugadorAleatoriamente()
+{
+    TArray<FVector> PosicionesLibres;
+    float Espaciado = 1000.f;
 
+    for (int32 Y = 0; Y < MapaLaberinto.Num(); ++Y)
+    {
+        for (int32 X = 0; X < MapaLaberinto[Y].Num(); ++X)
+        {
+            if (MapaLaberinto[Y][X] == 0) // celda vacía
+            {
+                FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
+                PosicionesLibres.Add(Posicion);
+            }
+        }
+    }
+
+    if (PosicionesLibres.Num() > 0)
+    {
+        int32 IndexAleatorio = FMath::RandRange(0, PosicionesLibres.Num() - 1);
+        FVector PosicionInicial = PosicionesLibres[IndexAleatorio];
+        PosicionInicial.Z = 0.f; // altura sobre el piso
+
+        APawn* Jugador = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+        if (Jugador)
+        {
+            Jugador->SetActorLocation(PosicionInicial);
+            UE_LOG(LogTemp, Warning, TEXT("✅ BomberMan reubicado en: %s"), *PosicionInicial.ToString());
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("❌ No se encontró el Pawn del jugador."));
+        }
+    }
+
+}
+*/
+//parte de la pregunta 2
+void ABomberMan_012025GameMode::ReemplazarBloqueInterno()
+{
+    TArray<ABloque*> BloquesInternos;
+
+    for (ABloque* Bloque : BloquesA)
+    {
+        if (!Bloque) continue;
+
+        FVector Pos = Bloque->GetActorLocation();
+
+        // Convertimos a índice de matriz dividiendo por el espaciado
+        int32 X = FMath::RoundToInt(Pos.X / 1000.f);
+        int32 Y = FMath::RoundToInt(Pos.Y / 1000.f);
+
+        // Si está en el borde, lo ignoramos
+        if (X <= 0 || Y <= 0 ||
+            X >= MapaLaberinto[0].Num() - 1 ||
+            Y >= MapaLaberinto.Num() - 1)
+        {
+            continue;
+        }
+
+        // Agregamos solo bloques que no sean acero y estén dentro del laberinto
+        if (!Bloque->IsA(ABloqueAcero::StaticClass()))
+        {
+            BloquesInternos.Add(Bloque);
+        }
+    }
+
+    if (BloquesInternos.Num() == 0) return;
+
+    // Elegimos uno al azar
+    int32 Index = FMath::RandRange(0, BloquesInternos.Num() - 1);
+    ABloque* BloqueAReemplazar = BloquesInternos[Index];
+
+    if (!BloqueAReemplazar) return;
+
+    FVector Posicion = BloqueAReemplazar->GetActorLocation();
+    FRotator Rotacion = BloqueAReemplazar->GetActorRotation();
+
+    // Eliminamos el actual
+    BloquesA.Remove(BloqueAReemplazar);
+    BloqueAReemplazar->Destroy();
+
+    // Elegimos una clase distinta al tipo actual
+    TArray<TSubclassOf<ABloque>> TiposPosibles = {ABloqueMadera::StaticClass(),ABloqueLadrillo::StaticClass(), ABloqueConcreto::StaticClass(),ABloquePegajoso::StaticClass(), ABloqueLava::StaticClass(),ABloqueHielo::StaticClass(), ABloqueArena::StaticClass(),ABloqueElectrico::StaticClass(),ABloqueHongo::StaticClass()};
+
+    // Filtrar para evitar repetir tipo
+    TSubclassOf<ABloque> ClaseActual = BloqueAReemplazar->GetClass();
+    TiposPosibles.Remove(ClaseActual);
+
+    int32 NuevoIndex = FMath::RandRange(0, TiposPosibles.Num() - 1);
+    TSubclassOf<ABloque> NuevaClase = TiposPosibles[NuevoIndex];
+
+    // Spawneamos el nuevo bloque
+    ABloque* NuevoBloque = GetWorld()->SpawnActor<ABloque>(NuevaClase, Posicion, Rotacion);
+    if (NuevoBloque)
+    {
+        BloquesA.Add(NuevoBloque);
+        UE_LOG(LogTemp, Warning, TEXT("Bloque reemplazado en "), *Posicion.ToString());
+    }
+}

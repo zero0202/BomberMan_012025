@@ -19,9 +19,43 @@ ENGINE_API UClass* Z_Construct_UClass_AGameModeBase();
 UPackage* Z_Construct_UPackage__Script_BomberMan_012025();
 // End Cross Module References
 
+// Begin Class ABomberMan_012025GameMode Function ReemplazarBloqueInterno
+struct Z_Construct_UFunction_ABomberMan_012025GameMode_ReemplazarBloqueInterno_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "BomberMan_012025GameMode.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABomberMan_012025GameMode_ReemplazarBloqueInterno_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABomberMan_012025GameMode, nullptr, "ReemplazarBloqueInterno", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABomberMan_012025GameMode_ReemplazarBloqueInterno_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABomberMan_012025GameMode_ReemplazarBloqueInterno_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ABomberMan_012025GameMode_ReemplazarBloqueInterno()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABomberMan_012025GameMode_ReemplazarBloqueInterno_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABomberMan_012025GameMode::execReemplazarBloqueInterno)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->ReemplazarBloqueInterno();
+	P_NATIVE_END;
+}
+// End Class ABomberMan_012025GameMode Function ReemplazarBloqueInterno
+
 // Begin Class ABomberMan_012025GameMode
 void ABomberMan_012025GameMode::StaticRegisterNativesABomberMan_012025GameMode()
 {
+	UClass* Class = ABomberMan_012025GameMode::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "ReemplazarBloqueInterno", &ABomberMan_012025GameMode::execReemplazarBloqueInterno },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ABomberMan_012025GameMode);
 UClass* Z_Construct_UClass_ABomberMan_012025GameMode_NoRegister()
@@ -65,6 +99,10 @@ struct Z_Construct_UClass_ABomberMan_012025GameMode_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Compuerta2;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_ABomberMan_012025GameMode_ReemplazarBloqueInterno, "ReemplazarBloqueInterno" }, // 2063349590
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ABomberMan_012025GameMode>::IsAbstract,
 	};
@@ -97,11 +135,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ABomberMan_012025GameMo
 	"Game",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_ABomberMan_012025GameMode_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_ABomberMan_012025GameMode_Statics::PropPointers),
 	0,
 	0x008802ACu,
@@ -127,10 +165,10 @@ ABomberMan_012025GameMode::~ABomberMan_012025GameMode() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025GameMode_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABomberMan_012025GameMode, ABomberMan_012025GameMode::StaticClass, TEXT("ABomberMan_012025GameMode"), &Z_Registration_Info_UClass_ABomberMan_012025GameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_012025GameMode), 1804400347U) },
+		{ Z_Construct_UClass_ABomberMan_012025GameMode, ABomberMan_012025GameMode::StaticClass, TEXT("ABomberMan_012025GameMode"), &Z_Registration_Info_UClass_ABomberMan_012025GameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_012025GameMode), 377712542U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025GameMode_h_3444387455(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025GameMode_h_2202864375(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025GameMode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BomberMan_012025GameMode_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
