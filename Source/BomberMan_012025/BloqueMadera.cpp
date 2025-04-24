@@ -6,8 +6,7 @@
 #include "Materials/MaterialInterface.h"
 #include "Particles/ParticleSystemComponent.h"
 
-
-ABloqueMadera::ABloqueMadera()
+ABloqueMadera::ABloqueMadera() 
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -25,6 +24,7 @@ ABloqueMadera::ABloqueMadera()
 	}
 
 	// Inicializar variables
+	MoverBloque = false;
 	bAbriendo = false;
 	VelocidadMovimiento = 100.0f; // Velocidad de movimiento
 	DistanciaApertura = 200.0f;   // Distancia máxima de apertura
@@ -45,30 +45,31 @@ void ABloqueMadera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Obtener la posición actual del bloque
-	FVector NuevaPosicion = GetActorLocation();
+	if (MoverBloque) {
+		// Obtener la posición actual del bloque
+		FVector NuevaPosicion = GetActorLocation();
 
-	// Mover hacia la derecha (abrir) o hacia la izquierda (cerrar) según el estado
-	if (bAbriendo)
-	{
-		// Mover hacia la derecha (abrir)
-		NuevaPosicion.X += VelocidadMovimiento * DeltaTime;
-		if (NuevaPosicion.X >= PosicionInicial.X + DistanciaApertura)
+		// Mover hacia la derecha (abrir) o hacia la izquierda (cerrar) según el estado
+		if (bAbriendo)
 		{
-			bAbriendo = false; // Cambiar dirección a cerrar
+			// Mover hacia la derecha (abrir)
+			NuevaPosicion.X += VelocidadMovimiento * DeltaTime;
+			if (NuevaPosicion.X >= PosicionInicial.X + DistanciaApertura)
+			{
+				bAbriendo = false; // Cambiar dirección a cerrar
+			}
 		}
-	}
-	else
-	{
-		// Mover hacia la izquierda (cerrar)
-		NuevaPosicion.X -= VelocidadMovimiento * DeltaTime;
-		if (NuevaPosicion.X <= PosicionInicial.X)
+		else
 		{
-			bAbriendo = true; // Cambiar dirección a abrir
+			// Mover hacia la izquierda (cerrar)
+			NuevaPosicion.X -= VelocidadMovimiento * DeltaTime;
+			if (NuevaPosicion.X <= PosicionInicial.X)
+			{
+				bAbriendo = true; // Cambiar dirección a abrir
+			}
 		}
+
+		// Aplicar la nueva posición
+		SetActorLocation(NuevaPosicion);
 	}
-
-	// Aplicar la nueva posición
-	SetActorLocation(NuevaPosicion);
-
 }

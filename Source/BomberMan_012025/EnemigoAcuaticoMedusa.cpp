@@ -2,9 +2,7 @@
 
 
 #include "EnemigoAcuaticoMedusa.h"
-#include "Components/SphereComponent.h"
 #include "BomberMan_012025GameMode.h"
-#include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 
 AEnemigoAcuaticoMedusa::AEnemigoAcuaticoMedusa()

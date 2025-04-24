@@ -9,10 +9,9 @@
 #include "TimerManager.h"
 #include "Kismet/GameplayStatics.h"
 
-// Sets default values
-ATeletransportador::ATeletransportador()
+
+ATeletransportador::ATeletransportador() 
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	RootComponent = MeshComp;
@@ -21,7 +20,7 @@ ATeletransportador::ATeletransportador()
 	if (MeshAsset.Succeeded())
 	{
 		MeshComp->SetStaticMesh(MeshAsset.Object);
-		MeshComp->SetRelativeScale3D(FVector(1.0f, 1.4f, 8.0f)); // Aquí cambias el tamaño visual del cubo
+		MeshComp->SetRelativeScale3D(FVector(1.0f, 1.4f, 20.0f));
 	}
 
 	MeshComp->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
@@ -38,14 +37,22 @@ ATeletransportador::ATeletransportador()
 
 }
 
-// Called when the game starts or when spawned
 void ATeletransportador::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	if (!bEsPuertaFija)
+	{
+		AlternarEstadoPuerta();
+	}
+	else
+	{
+		// Activar y dejar fija
+		MeshComp->SetVisibility(true);
+		MeshComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	}
+
 }
 
-// Called every frame
 void ATeletransportador::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -55,27 +62,61 @@ void ATeletransportador::SetGameMode(ABomberMan_012025GameMode* GameMode)
 {
 	GameModeRef = GameMode;
 }
-void ATeletransportador::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	if (!OtherActor || OtherActor == this || !CompuertaDestino || !GameModeRef) return;
 
-	// Verificar tipo de actor
+void ATeletransportador::AlternarEstadoPuerta()
+{
+	if (bEsPuertaFija)
+	{
+		
+		MeshComp->SetVisibility(true);
+		MeshComp->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		return; 
+	}
+
+	bEstaActiva = !bEstaActiva;
+
+	MeshComp->SetVisibility(bEstaActiva);
+	MeshComp->SetCollisionEnabled(bEstaActiva ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+
+	
+	int32 Tiempo = FMath::RandRange(TiempoMin, TiempoMax);
+
+	
+	GetWorld()->GetTimerManager().SetTimer(TimerAlternarEstado, this, &ATeletransportador::AlternarEstadoPuerta, Tiempo, false);
+
+}
+
+void ATeletransportador::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (!OtherActor || OtherActor == this || !GameModeRef) return;
+
 	if (!OtherActor->IsA(ABomberMan_012025Character::StaticClass())) return;
 
-	// Verificar cooldown individual por actor
 	float TiempoActual = GetWorld()->GetTimeSeconds();
 	float* UltimoTiempo = GameModeRef->ActoresTeletransportados.Find(OtherActor);
 	if (UltimoTiempo && TiempoActual - *UltimoTiempo < TiempoEsperaTeletransporte)
 	{
-		return; // Aún en cooldown
+		return;
 	}
 
-	// Actualizar tiempo
 	GameModeRef->ActoresTeletransportados.Add(OtherActor, TiempoActual);
 
-	// Teletransportar al destino
-	OtherActor->SetActorLocation(CompuertaDestino->GetActorLocation());
+	// Elegir una puerta aleatoria diferente a esta
+	TArray<ATeletransportador*> OtrasPuertas;
+	for (ATeletransportador* Puerta : CompuertasConectadas)
+	{
+		if (Puerta && Puerta != this)
+		{
+			OtrasPuertas.Add(Puerta);
+		}
+	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT(" fue teletransportado."), *OtherActor->GetName()));
+	if (OtrasPuertas.Num() == 0) return;
+
+	int32 IndexDestino = FMath::RandRange(0, OtrasPuertas.Num() - 1);
+	FVector PosicionDestino = OtrasPuertas[IndexDestino]->GetActorLocation();
+
+	OtherActor->SetActorLocation(PosicionDestino);
+
+	UE_LOG(LogTemp, Warning, TEXT("fue teletransportado a otra puerta"), *OtherActor->GetName());
 }

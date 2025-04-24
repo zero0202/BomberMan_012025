@@ -182,10 +182,10 @@ ABloquePegajoso::~ABloquePegajoso() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloquePegajoso, ABloquePegajoso::StaticClass, TEXT("ABloquePegajoso"), &Z_Registration_Info_UClass_ABloquePegajoso, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloquePegajoso), 1980135415U) },
+		{ Z_Construct_UClass_ABloquePegajoso, ABloquePegajoso::StaticClass, TEXT("ABloquePegajoso"), &Z_Registration_Info_UClass_ABloquePegajoso, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloquePegajoso), 2280766984U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_111853987(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_2840690644(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloquePegajoso_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

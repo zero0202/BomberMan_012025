@@ -182,10 +182,10 @@ ABloqueHongo::~ABloqueHongo() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueHongo_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloqueHongo, ABloqueHongo::StaticClass, TEXT("ABloqueHongo"), &Z_Registration_Info_UClass_ABloqueHongo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueHongo), 3470162121U) },
+		{ Z_Construct_UClass_ABloqueHongo, ABloqueHongo::StaticClass, TEXT("ABloqueHongo"), &Z_Registration_Info_UClass_ABloqueHongo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueHongo), 3737988782U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueHongo_h_3362671665(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueHongo_h_2969097425(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueHongo_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_BloqueHongo_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -38,7 +38,7 @@ void ABloqueHielo::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	TiempoMovimiento += DeltaTime;
 
-	// Movimiento suave tipo onda senoidal en el eje Z
+	
 	float Amplitud = 20.0f;          // Altura de la onda
 	float Frecuencia = 1.5f;         // Velocidad del movimiento
 

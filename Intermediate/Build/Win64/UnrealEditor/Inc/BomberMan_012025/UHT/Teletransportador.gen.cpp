@@ -36,13 +36,7 @@ struct Z_Construct_UFunction_ATeletransportador_OnOverlapBegin_Statics
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Evento de colisi\xef\xbf\xbdn\n" },
-#endif
 		{ "ModuleRelativePath", "Teletransportador.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Evento de colisi\xef\xbf\xbdn" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComp_MetaData[] = {
 		{ "EditInline", "true" },
@@ -131,54 +125,26 @@ struct Z_Construct_UClass_ATeletransportador_Statics
 		{ "ModuleRelativePath", "Teletransportador.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MeshComp_MetaData[] = {
-		{ "Category", "Components" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Componente visual\n" },
-#endif
+		{ "Category", "Teletransportador" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Teletransportador.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Componente visual" },
-#endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CompuertaDestino_MetaData[] = {
-		{ "Category", "Teletransporte" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Compuerta de destino\n" },
-#endif
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_CompuertasConectadas_MetaData[] = {
+		{ "Category", "Teletransportador" },
 		{ "ModuleRelativePath", "Teletransportador.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Compuerta de destino" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GameModeRef_MetaData[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Referencia al GameMode\n" },
-#endif
 		{ "ModuleRelativePath", "Teletransportador.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Referencia al GameMode" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TiempoEsperaTeletransporte_MetaData[] = {
-		{ "Category", "Teletransporte" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// Tiempo m\xef\xbf\xbdnimo entre teletransportes del mismo actor\n" },
-#endif
-		{ "ModuleRelativePath", "Teletransportador.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Tiempo m\xef\xbf\xbdnimo entre teletransportes del mismo actor" },
-#endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MeshComp;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_CompuertaDestino;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_CompuertasConectadas_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_CompuertasConectadas;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_GameModeRef;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_TiempoEsperaTeletransporte;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_ATeletransportador_OnOverlapBegin, "OnOverlapBegin" }, // 3530980321
+		{ &Z_Construct_UFunction_ATeletransportador_OnOverlapBegin, "OnOverlapBegin" }, // 4080283403
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -186,15 +152,15 @@ struct Z_Construct_UClass_ATeletransportador_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATeletransportador_Statics::NewProp_MeshComp = { "MeshComp", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATeletransportador, MeshComp), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeshComp_MetaData), NewProp_MeshComp_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATeletransportador_Statics::NewProp_CompuertaDestino = { "CompuertaDestino", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATeletransportador, CompuertaDestino), Z_Construct_UClass_ATeletransportador_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CompuertaDestino_MetaData), NewProp_CompuertaDestino_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATeletransportador_Statics::NewProp_MeshComp = { "MeshComp", nullptr, (EPropertyFlags)0x00100000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATeletransportador, MeshComp), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeshComp_MetaData), NewProp_MeshComp_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATeletransportador_Statics::NewProp_CompuertasConectadas_Inner = { "CompuertasConectadas", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_ATeletransportador_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ATeletransportador_Statics::NewProp_CompuertasConectadas = { "CompuertasConectadas", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATeletransportador, CompuertasConectadas), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CompuertasConectadas_MetaData), NewProp_CompuertasConectadas_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATeletransportador_Statics::NewProp_GameModeRef = { "GameModeRef", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATeletransportador, GameModeRef), Z_Construct_UClass_ABomberMan_012025GameMode_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GameModeRef_MetaData), NewProp_GameModeRef_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATeletransportador_Statics::NewProp_TiempoEsperaTeletransporte = { "TiempoEsperaTeletransporte", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATeletransportador, TiempoEsperaTeletransporte), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TiempoEsperaTeletransporte_MetaData), NewProp_TiempoEsperaTeletransporte_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATeletransportador_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATeletransportador_Statics::NewProp_MeshComp,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATeletransportador_Statics::NewProp_CompuertaDestino,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATeletransportador_Statics::NewProp_CompuertasConectadas_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATeletransportador_Statics::NewProp_CompuertasConectadas,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATeletransportador_Statics::NewProp_GameModeRef,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATeletransportador_Statics::NewProp_TiempoEsperaTeletransporte,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATeletransportador_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ATeletransportador_Statics::DependentSingletons[])() = {
@@ -237,10 +203,10 @@ ATeletransportador::~ATeletransportador() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Teletransportador_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ATeletransportador, ATeletransportador::StaticClass, TEXT("ATeletransportador"), &Z_Registration_Info_UClass_ATeletransportador, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATeletransportador), 3344926041U) },
+		{ Z_Construct_UClass_ATeletransportador, ATeletransportador::StaticClass, TEXT("ATeletransportador"), &Z_Registration_Info_UClass_ATeletransportador, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATeletransportador), 862679238U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Teletransportador_h_3483790625(TEXT("/Script/BomberMan_012025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Teletransportador_h_2077538412(TEXT("/Script/BomberMan_012025"),
 	Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Teletransportador_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_012025_Source_BomberMan_012025_Teletransportador_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

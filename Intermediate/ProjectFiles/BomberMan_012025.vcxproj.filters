@@ -96,6 +96,12 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\BloqueMadera.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\BloqueMovil.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\BloqueMovil.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\BloquePegajoso.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
@@ -181,6 +187,12 @@
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestreTortuga.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Moneda.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\Moneda.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\Muro.cpp">

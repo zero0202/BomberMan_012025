@@ -3,8 +3,8 @@
 
 #include "Bloque.h"
 #include "Components/StaticMeshComponent.h"
-#include "Materials/MaterialInterface.h"
 #include "Particles/ParticleSystemComponent.h"
+
 
 // Sets default values
 ABloque::ABloque()
@@ -16,23 +16,11 @@ ABloque::ABloque()
 	MeshBloque = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshBloque"));
 	MeshBloque->SetupAttachment(RootComponent);
 	RootComponent = MeshBloque;
-	/* 
-	//static  solo pude existir una sola vez en una clase, se define un objeto estatico
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> ObjetoMeshBloque(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_WideCapsule.Shape_WideCapsule'"));
-	if (ObjetoMeshBloque.Succeeded())
-	{
-		MeshBloque->SetStaticMesh(ObjetoMeshBloque.Object);
 
-		MeshBloque->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-	}
-	//para asignar textura al bloque
-	static ConstructorHelpers::FObjectFinder<UMaterialInterface> ObjetoBloqueMaterial(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/M_Tech_Panel.M_Tech_Panel'"));
-	if (ObjetoBloqueMaterial.Succeeded())
-	{
-		MeshBloque->SetMaterial(0, ObjetoBloqueMaterial.Object);
-
-	}
-	
+	//Para las particulas
+	Particulas = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Particulas"));
+	Particulas->SetupAttachment(RootComponent);
+	/*
 	// Inicializar variables para la velocidad y la rotacion del bloque 
 	FloatSpeed = 5.0f;
 	RotationSpeed = 3.0f;
@@ -74,7 +62,6 @@ void ABloque::Tick(float DeltaTime)
 	}
 	*/
 }
-
 void ABloque::AjustarTamano(FVector NuevoTamano)
 {
 	MeshBloque->SetWorldScale3D(NuevoTamano);

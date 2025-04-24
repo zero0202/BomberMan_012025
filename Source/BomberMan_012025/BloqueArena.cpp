@@ -1,13 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "BloqueArena.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
 #include "Particles/ParticleSystemComponent.h"
-#include "Particles/ParticleSystem.h"
 #include "GameFramework/Character.h"
-#include "Engine/Engine.h" 
+#include "Engine/Engine.h"
 
 ABloqueArena::ABloqueArena()
 {
@@ -26,67 +24,52 @@ ABloqueArena::ABloqueArena()
 	if (ObjetoBloqueAceroMaterial.Succeeded())
 	{
 		MeshBloque->SetMaterial(0, ObjetoBloqueAceroMaterial.Object);
-
 	}
-
-	// Partículas de polvo/sand
-	ParticulasArena = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticulasArena"));
-	ParticulasArena->SetupAttachment(RootComponent);
-
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> ArenaFX(TEXT("/Game/StarterContent/Particles/P_Steam_Lit.P_Steam_Lit")); // usa este como polvo temporal
+	//para simular polvo
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> ArenaFX(TEXT("/Game/StarterContent/Particles/P_Steam_Lit.P_Steam_Lit"));
 	if (ArenaFX.Succeeded())
 	{
-		ParticulasArena->SetTemplate(ArenaFX.Object);
+		Particulas->SetTemplate(ArenaFX.Object);
 	}
-	// Configurar la colisión
+
+	// Configurar la colision
 	MeshBloque->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 	MeshBloque->OnComponentBeginOverlap.AddDynamic(this, &ABloqueArena::OnOverlapBegin);  // Detectar cuando empieza la colisión
 
 
-	TiempoArena = 0.f;
-	TiempoHundimiento = 0.f;
-	bEstaHundido = false;
+	velocidadA = 5.0f;
+	Amplitud = 100.0f;
+	Direccion = 1.0f; // 1 = hacia arriba, -1 = hacia abajo
+
+	PuedeMoverseA = true;
 }
 
 void ABloqueArena::BeginPlay()
 {
 	Super::BeginPlay();
 	PosicionInicial = GetActorLocation();
-	ParticulasArena->Activate();
 }
 
 void ABloqueArena::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	TiempoArena += DeltaTime;
+    if (PuedeMoverseA)
+	{ 
+		FVector PosicionActual = GetActorLocation();
 
-	// Movimiento suave tipo onda senoidal (como si "respirara arena")
-	float Amplitud = 5.0f;
-	float Frecuencia = 3.5f;
+		// Mover hacia arriba o abajo según la dirección
+		PosicionActual.Z += Direccion * velocidadA * DeltaTime;
 
-	float DesplazamientoZ = FMath::Sin(TiempoArena * Frecuencia) * Amplitud;
-
-	FVector NuevaPos = PosicionInicial;
-	NuevaPos.Z = PosicionInicial.Z + DesplazamientoZ;
-
-	SetActorLocation(NuevaPos);
-
-	// Si el bloque está hundido, moverlo hacia abajo
-	if (bEstaHundido)
-	{
-		TiempoHundimiento += DeltaTime;
-		float DesplazamientoHundido = FMath::Lerp(0.f, -50.f, TiempoHundimiento / 3.f);  // Hundir 50 unidades hacia abajo en 3 segundos
-		FVector NuevaPosHundido = PosicionInicial;
-		NuevaPosHundido.Z += DesplazamientoHundido;
-
-		SetActorLocation(NuevaPosHundido);
-
-		// Una vez que el bloque haya llegado al fondo, evitar más movimiento
-		if (TiempoHundimiento >= 3.f)
+		float DistanciaZ = PosicionActual.Z - PosicionInicial.Z;
+		// Verificar si alcanzó el límite de movimiento
+		if (DistanciaZ >= Amplitud || DistanciaZ <= -Amplitud)
 		{
-			bEstaHundido = false;  // El bloque dejó de hundirse
+			Direccion *= -1.0f;
 		}
+
+		// Aplicar la nueva posición
+		SetActorLocation(PosicionActual);
 	}
 }
 
@@ -96,12 +79,8 @@ void ABloqueArena::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	ACharacter* Personaje = Cast<ACharacter>(OtherActor);
 	if (Personaje)
 	{
-		// Mostrar un mensaje en el log
-		UE_LOG(LogTemp, Warning, TEXT("Personaje tocó el bloque de arena"));
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Orange, TEXT("Choco con el bloque arena"));
 
-		// Iniciar el hundimiento
-		bEstaHundido = true;
-		TiempoHundimiento = 1.f;
 	}
 }
 

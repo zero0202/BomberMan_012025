@@ -7,7 +7,7 @@
 #include "Bloque.generated.h"
 
 class UStaticMeshComponent;
-
+class UParticleSystemComponent;
 UCLASS()
 class BOMBERMAN_012025_API ABloque : public AActor
 {
@@ -24,22 +24,21 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-public:
+
+protected:
 	//malla del bloque
 	UPROPERTY()
 	UStaticMeshComponent* MeshBloque;
-
+	UPROPERTY()
+	UParticleSystemComponent* Particulas;
 	
 	//float FloatSpeed;
 	//float RotationSpeed;
 	//bool bPuedeMoverse;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Bloque")
-	bool bDestruible = true;
-	//funcion para cambiar el tamaño del bloque
-	UFUNCTION(BlueprintCallable)
-
-	void AjustarTamano(FVector NuevoTamano);
+public:
+	 bool bDestruible = true;
+	
+	 virtual void AjustarTamano(FVector NuevoTamano);
 
 //private:
 

@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "Teletransportador.h"
 #include "Bloque.h"
+#include "Enemigo.h"
 #include "BomberMan_012025GameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -14,51 +15,61 @@ class ABomberMan_012025GameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+
 	ABomberMan_012025GameMode();
+
 public:
 
 	virtual void BeginPlay() override;
 
+
 public:
 
+	//Para bloque
 	UPROPERTY()
 	TArray<ABloque*> BloquesA; // Guarda todos los bloques generados
 	TArray<TArray<int32>> MapaLaberinto; 
+	void GenerarMapaDesdeCodigo();
+	void GenerarLaberinto();
+	void GenerarBloqueMovible();
 
+	//para Eliminar bloques
 	ABloque* BloqueActual = nullptr;
 	FTimerHandle TimerEliminarBloque;
-
-	void GenerarLaberinto();
+	FTimerHandle TimerInicialBloquesMadera;
 	void EliminarBloque();
+	void iniciarEliminarBloque();
 
-	//portal para abajo
-	UPROPERTY()
-	TMap<AActor*, float> ActoresTeletransportados;
-
-	UPROPERTY()
-	ATeletransportador* Compuerta1;
-
-	UPROPERTY()
-	ATeletransportador* Compuerta2;
-
-
-	void SpawnEnemigosAereos();
-
-	TArray<FVector> PuntosPatrullaLibres;
-
-
-	//PRIMER_PARCIAL
 public:
 
-	//parte de la pregunta 1
-	void PosicionarJugadorAleatoriamente();
-	FTimerHandle TimerPosicion; // <- Agregalo junto a los otros timers
-	//----
+	//para enemigos
+	UPROPERTY()
+	TArray<AEnemigo*> EnemigosA;//GUARDA LOS ENEMIGOS 
+	TArray<FVector> PuntosPatrullaLibres;
+	void SpawnEnemigos();
 
-	//parte de la pregunta 2
+	//para eliminar enemigos
+	AEnemigo* EnemigoActual = nullptr;
+	FTimerHandle TimerEliminarEnemigos;
+	void EleminarEnemigos();
+
+public:
+
+	//para el teletransportador
+	UPROPERTY()
+	TArray<ATeletransportador*> TodasLasPuertas;
+	TMap<AActor*, float> ActoresTeletransportados;
+	void GenerarPortal();
+
+public:
+	
+	void PosicionarJugadorAleatoriamente();
+	FTimerHandle TimerPosicion;
+
+	void ReemplazarBloqueInterno();
 	FTimerHandle TimerReemplazoBloque; 
-	UFUNCTION()
-	void ReemplazarBloqueInterno(); 
+public:
+	void GenerarMonedas();
 	
 
 };

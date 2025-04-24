@@ -2,7 +2,6 @@
 
 
 #include "BloqueHongo.h"
-#include "Components/StaticMeshComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Actor.h"
 
@@ -47,8 +46,8 @@ void ABloqueHongo::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	if (Personaje)
 	{
 		// Aplicar una fuerza hacia arriba al personaje
-		Personaje->LaunchCharacter(FVector(0, 0, 10000), true, true); // Aplica una fuerza hacia arriba (ajustar el valor de 1000)
+		Personaje->LaunchCharacter(FVector(0, 0, 1000), true, true); // Aplica una fuerza hacia arriba (ajustar el valor de 1000)
 		
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("¡Chocaste con el bloque hongo y saltaste hacia arriba!"));
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Chocaste con el bloque hongo y saltaste hacia arriba"));
 	}
 }

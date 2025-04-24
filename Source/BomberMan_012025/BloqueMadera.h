@@ -26,6 +26,7 @@ public:
 
 public:
 
+	bool MoverBloque;
 	bool bAbriendo;
 	float VelocidadMovimiento;
 	float DistanciaApertura; // Distancia máxima al abrir
