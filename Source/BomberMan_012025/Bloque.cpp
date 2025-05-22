@@ -20,14 +20,7 @@ ABloque::ABloque()
 	//Para las particulas
 	Particulas = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Particulas"));
 	Particulas->SetupAttachment(RootComponent);
-	/*
-	// Inicializar variables para la velocidad y la rotacion del bloque 
-	FloatSpeed = 5.0f;
-	RotationSpeed = 3.0f;
-
-	// Inicializar variables para el movimiento del bloque
-	bPuedeMoverse = FMath::RandBool();
-	*/
+	
 	// Establecer el tamaño inicial del bloque
 	AjustarTamano(FVector(9.0f, 9.0f, 13.0f));
 
@@ -45,25 +38,16 @@ void ABloque::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	/*
-	//para el movimiento
-	if (bPuedeMoverse)
-	{
-		//para el movimiento de arriba abajo
-		FVector NewLocation = GetActorLocation();
-		NewLocation.Z += DireccionMovimiento * FloatSpeed;
-
-		if (FMath::Abs(NewLocation.Z - PosicionInicial.Z) >= AmplitudMovimiento)
-		{
-			DireccionMovimiento *= -1; // Invertir dirección al alcanzar el límite
-		}
-
-		SetActorLocation(NewLocation);
-	}
-	*/
+	
 }
 void ABloque::AjustarTamano(FVector NuevoTamano)
 {
 	MeshBloque->SetWorldScale3D(NuevoTamano);
 }
+/*
+ABloque* ABloque::Clonar(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion)
+{
+	return Mundo->SpawnActor<ABloque>(GetClass(), Posicion, Rotacion);;
+}
 
+*/

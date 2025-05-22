@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Bloque.generated.h"
+
 
 class UStaticMeshComponent;
 class UParticleSystemComponent;
@@ -32,19 +32,13 @@ protected:
 	UPROPERTY()
 	UParticleSystemComponent* Particulas;
 	
-	//float FloatSpeed;
-	//float RotationSpeed;
-	//bool bPuedeMoverse;
+	
 public:
 	 bool bDestruible = true;
 	
 	 virtual void AjustarTamano(FVector NuevoTamano);
 
-//private:
-
-	//FVector PosicionInicial;
-	//float AmplitudMovimiento = 100.0f; // Distancia máxima de movimiento
-	//float DireccionMovimiento = 1.0f; // 1 = hacia arriba, -1 = hacia abajo
-
+public:
+	//virtual ABloque* Clonar(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion) override;
 
 };

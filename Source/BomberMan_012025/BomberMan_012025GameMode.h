@@ -7,6 +7,7 @@
 #include "Teletransportador.h"
 #include "Bloque.h"
 #include "Enemigo.h"
+#include "FabricaBloques.h"
 #include "BomberMan_012025GameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -32,6 +33,11 @@ public:
 	void GenerarMapaDesdeCodigo();
 	void GenerarLaberinto();
 	void GenerarBloqueMovible();
+
+	//FabricaBloques* GenerarBloques();
+
+	//Para clonar bloques
+	void ClonarBloque();
 
 	//para Eliminar bloques
 	ABloque* BloqueActual = nullptr;

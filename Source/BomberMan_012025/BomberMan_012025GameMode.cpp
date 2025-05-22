@@ -31,6 +31,7 @@
 #include "EnemigoAcuaticoSaltarin.h"
 #include "EnemigoAcuaticoMedusa.h" 
 #include "Moneda.h"
+#include "IPrototypeBloque.h"
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
@@ -109,7 +110,7 @@ void ABomberMan_012025GameMode::BeginPlay()
     GenerarPortal();
     SpawnEnemigos();
 	GenerarMonedas();
-
+	ClonarBloque();
 
 	//---------------------TEMPORIZADORES DEL JUEGO------------------
 	//para eliminar bloque administrador de tiempo
@@ -129,13 +130,14 @@ void ABomberMan_012025GameMode::BeginPlay()
 void ABomberMan_012025GameMode::GenerarMapaDesdeCodigo()
 {
     
-    int32 Columnas = 49;
-    int32 Filas = 49;
+    int Columnas = 49;
+    int Filas = 49;
 
-    int32 TColumnas = Columnas + 1;
-    int32 TFilas = Filas + 1;
-    int32 Y;
-    int32 X;
+    int TColumnas = Columnas + 1;
+    int TFilas = Filas + 1;
+    int Y;
+    int X;
+
     //inicializamos la matriz
     MapaLaberinto.SetNum(TFilas);
     for (Y = 0; Y < TFilas; Y++)
@@ -154,14 +156,14 @@ void ABomberMan_012025GameMode::GenerarMapaDesdeCodigo()
             }
         }
     }
-    //FIntPoint para almacenar los dos puntos x, y
+    //FIntPoint para almacenar los dos puntos x, ya
     //int32, int32
     TSet<FIntPoint> Visitadas;//evita repetidos y bucles infinitos 
     TArray<FIntPoint> Pila;//explora 
     auto Direcciones = { FIntPoint(0, -2), FIntPoint(0, 2), FIntPoint(-2, 0), FIntPoint(2, 0) };
 
     //verifica si esta dentro del 49
-    auto Valido = [&](int32 X, int32 Y) -> bool
+    auto Valido = [&](int X, int Y) -> bool
         {
             return X > 0 && Y > 0 && X < Columnas && Y < Filas;
         };
@@ -191,8 +193,8 @@ void ABomberMan_012025GameMode::GenerarMapaDesdeCodigo()
             FIntPoint Elegido = Vecinos[FMath::RandRange(0, Vecinos.Num() - 1)];
 
             // Abrir camino
-            int32 MidX = (Actual.X + Elegido.X) / 2;
-            int32 MidY = (Actual.Y + Elegido.Y) / 2;
+            int MidX = (Actual.X + Elegido.X) / 2;
+            int MidY = (Actual.Y + Elegido.Y) / 2;
 
             MapaLaberinto[Elegido.Y][Elegido.X] = 0;
             MapaLaberinto[MidY][MidX] = 0;
@@ -207,8 +209,8 @@ void ABomberMan_012025GameMode::GenerarMapaDesdeCodigo()
     }
 
     // Muros internos: 40% izquierda madera, resto ladrillo
-    int32 BloqueColumnas = TColumnas * 0.4f;
-    int32 BloqueFilas = TFilas * 0.3f;
+    int BloqueColumnas = TColumnas * 0.4f;
+    int BloqueFilas = TFilas * 0.3f;
 
     // Bloques internos
     for (Y = 1; Y < TFilas - 1; Y++)
@@ -276,13 +278,13 @@ void ABomberMan_012025GameMode::GenerarLaberinto()
     //puedo hacer un laberinto más grande o más pequeño solo cambiando el array, sin tocar nada más del código
     
     // Recorre cada fila del mapa del laberinto (eje Y)
-    for (int32 Y = 0; Y < MapaLaberinto.Num(); ++Y)
+    for (int Y = 0; Y < MapaLaberinto.Num(); ++Y)
     {
         // Recorre cada columna dentro de la fila actual (eje X)
-        for (int32 X = 0; X < MapaLaberinto[Y].Num(); ++X)
+        for (int X = 0; X < MapaLaberinto[Y].Num(); ++X)
         {
             // Obtiene el tipo de bloque que hay en la posición (Y, X)
-            int32 Tipo = MapaLaberinto[Y][X];
+            int Tipo = MapaLaberinto[Y][X];
 
             // Si el tipo es 0, se considera espacio vacío y no se genera nada
             if (Tipo == 0) {
@@ -331,7 +333,7 @@ void ABomberMan_012025GameMode::GenerarLaberinto()
 
 void ABomberMan_012025GameMode::GenerarBloqueMovible()
 {
-    for (int32 i = 0; i < 2; ++i)
+    for (int i = 0; i < 2; ++i)
     {
         if (PuntosPatrullaLibres.Num() == 0) break;
 
@@ -347,6 +349,22 @@ void ABomberMan_012025GameMode::GenerarBloqueMovible()
             // Esencial para que se mueva correctamente
             Bloque->PosicionInicial = Pos;
             Bloque->GameModeRef = this;  // muy importante
+        }
+    }
+}
+
+void ABomberMan_012025GameMode::ClonarBloque()
+{// Supongamos que tienes un prototipo colocado en el mundo
+    TArray<AActor*> Resultados;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueMadera::StaticClass(), Resultados);
+
+    if (Resultados.Num() > 0)
+    {
+        ABloqueMadera* Prototipo = Cast<ABloqueMadera>(Resultados[0]);
+        if (Prototipo)
+        {
+            FVector PosDestino(2300, 4300, 1100); // donde quieras clonarlo
+            AActor* Clon = Prototipo->Clonar(GetWorld(), PosDestino);
         }
     }
 }
@@ -371,9 +389,9 @@ void ABomberMan_012025GameMode::GenerarPortal()
         }
     }
 
-    int32 IndexFija1 = FMath::RandRange(0, TodasLasPuertas.Num() - 1);
+    int IndexFija1 = FMath::RandRange(0, TodasLasPuertas.Num() - 1);
 
-    int32 IndexFija2;
+    int IndexFija2;
     do {
         IndexFija2 = FMath::RandRange(0, TodasLasPuertas.Num() - 1);
     } while (IndexFija2 == IndexFija1); // asegurarse de que no sea el mismo índice
@@ -465,7 +483,7 @@ void ABomberMan_012025GameMode::EleminarEnemigos()
 
     if (EnemigosEliminables.Num() > 0)
     {
-        int32 AleatorioE = FMath::RandRange(0, EnemigosEliminables.Num() - 1);
+        int AleatorioE = FMath::RandRange(0, EnemigosEliminables.Num() - 1);
         AEnemigo* EnemigoAEliminar = EnemigosEliminables[AleatorioE];
 
         if (IsValid(EnemigoAEliminar))
@@ -527,9 +545,9 @@ void ABomberMan_012025GameMode::PosicionarJugadorAleatoriamente()
     int32 NumColumnas = MapaLaberinto[0].Num();
     float DistanciaMinima = FLT_MAX;
 
-    for (int32 Y = 1; Y < NumFilas - 1; ++Y)
+    for (int Y = 1; Y < NumFilas - 1; ++Y)
     {
-        for (int32 X = 1; X < NumColumnas - 1; ++X)
+        for (int X = 1; X < NumColumnas - 1; ++X)
         {
             // Buscamos celdas vacías adyacentes a bloques de madera
             if (MapaLaberinto[Y][X] == 0)
@@ -542,11 +560,11 @@ void ABomberMan_012025GameMode::PosicionarJugadorAleatoriamente()
                 if (CercaDeMadera)
                 {
                     // Calcular la distancia al borde más cercano
-                    int32 DistIzq = X;
-                    int32 DistDer = NumColumnas - 1 - X;
-                    int32 DistArriba = Y;
-                    int32 DistAbajo = NumFilas - 1 - Y;
-                    int32 DistanciaABorde = FMath::Min3(DistIzq, DistDer, FMath::Min(DistArriba, DistAbajo));
+                    int DistIzq = X;
+                    int DistDer = NumColumnas - 1 - X;
+                    int DistArriba = Y;
+                    int DistAbajo = NumFilas - 1 - Y;
+                    int DistanciaABorde = FMath::Min3(DistIzq, DistDer, FMath::Min(DistArriba, DistAbajo));
 
                     FVector Pos = FVector(X * Espaciado, Y * Espaciado, 0.0f);
 
@@ -601,8 +619,8 @@ void ABomberMan_012025GameMode::ReemplazarBloqueInterno()
         FVector Pos = Bloque->GetActorLocation();
 
         // Convertimos a índice de matriz dividiendo por el espaciado
-        int32 X = FMath::RoundToInt(Pos.X / 900.f);
-        int32 Y = FMath::RoundToInt(Pos.Y / 900.f);
+        int X = FMath::RoundToInt(Pos.X / 900.f);
+        int Y = FMath::RoundToInt(Pos.Y / 900.f);
 
         // Si está en el borde, lo ignoramos
         if (X <= 0 || Y <= 0 ||
@@ -622,7 +640,7 @@ void ABomberMan_012025GameMode::ReemplazarBloqueInterno()
     if (BloquesInternos.Num() == 0) return;
 
     // Elegimos uno al azar
-    int32 Index = FMath::RandRange(0, BloquesInternos.Num() - 1);
+    int Index = FMath::RandRange(0, BloquesInternos.Num() - 1);
     ABloque* BloqueAReemplazar = BloquesInternos[Index];
 
     if (!BloqueAReemplazar) return;
@@ -641,7 +659,7 @@ void ABomberMan_012025GameMode::ReemplazarBloqueInterno()
     TSubclassOf<ABloque> ClaseActual = BloqueAReemplazar->GetClass();
     TiposPosibles.Remove(ClaseActual);
 
-    int32 NuevoIndex = FMath::RandRange(0, TiposPosibles.Num() - 1);
+    int NuevoIndex = FMath::RandRange(0, TiposPosibles.Num() - 1);
     TSubclassOf<ABloque> NuevaClase = TiposPosibles[NuevoIndex];
 
     // Spawneamos el nuevo bloque

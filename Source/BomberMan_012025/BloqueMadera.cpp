@@ -4,6 +4,8 @@
 #include "BloqueMadera.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInterface.h"
+#include "Engine/World.h"
+#include "GameFramework/Actor.h"
 #include "Particles/ParticleSystemComponent.h"
 
 ABloqueMadera::ABloqueMadera() 
@@ -44,7 +46,7 @@ void ABloqueMadera::BeginPlay()
 void ABloqueMadera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	TiempoMovimiento += DeltaTime;
 	if (MoverBloque) {
 		// Obtener la posición actual del bloque
 		FVector NuevaPosicion = GetActorLocation();
@@ -73,3 +75,22 @@ void ABloqueMadera::Tick(float DeltaTime)
 		SetActorLocation(NuevaPosicion);
 	}
 }
+
+AActor* ABloqueMadera::Clonar(UWorld* Mundo, const FVector& Posicion) const
+{
+	if (!Mundo) return nullptr;
+
+	FActorSpawnParameters SpawnParams;
+	ABloqueMadera* Nuevo = Mundo->SpawnActor<ABloqueMadera>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
+
+	// Copiar estado relevante
+	if (Nuevo)
+	{
+		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
+		// puedes copiar más propiedades si necesitas
+	}
+
+	return Nuevo;
+}
+
+

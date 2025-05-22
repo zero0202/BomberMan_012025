@@ -189,6 +189,24 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\EnemigoTerrestreTortuga.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\FabricaBloqueClasico.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\FabricaBloqueClasico.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\FabricaBloques.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\FabricaBloques.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\IPrototypeBloque.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\IPrototypeBloque.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\Moneda.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>

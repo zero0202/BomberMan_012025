@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Bloque.h"
+#include "IPrototypeBloque.h"
 #include "BloqueMadera.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BOMBERMAN_012025_API ABloqueMadera : public ABloque
+class BOMBERMAN_012025_API ABloqueMadera : public ABloque, public IIPrototypeBloque
 {
 	GENERATED_BODY()
 	
@@ -32,4 +33,9 @@ public:
 	float DistanciaApertura; // Distancia máxima al abrir
 	FVector PosicionInicial; // Posición inicial
 
+	// Implementación del patrón Prototype
+	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) const override;
+	float TiempoMovimiento;
+	//FVector PosicionInicial;
+	
 };
