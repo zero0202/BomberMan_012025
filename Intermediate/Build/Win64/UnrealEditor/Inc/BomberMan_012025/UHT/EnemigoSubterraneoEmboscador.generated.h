@@ -9,17 +9,10 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class AActor;
-class UPrimitiveComponent;
-struct FHitResult;
 #ifdef BOMBERMAN_012025_EnemigoSubterraneoEmboscador_generated_h
 #error "EnemigoSubterraneoEmboscador.generated.h already included, missing '#pragma once' in EnemigoSubterraneoEmboscador.h"
 #endif
 #define BOMBERMAN_012025_EnemigoSubterraneoEmboscador_generated_h
-
-#define FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubterraneoEmboscador_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execOnCollisionWithPlayer);
-
 
 #define FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubterraneoEmboscador_h_15_INCLASS_NO_PURE_DECLS \
 private: \
@@ -46,7 +39,6 @@ public: \
 #define FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubterraneoEmboscador_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubterraneoEmboscador_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubterraneoEmboscador_h_15_INCLASS_NO_PURE_DECLS \
 	FID_BomberMan_012025_Source_BomberMan_012025_EnemigoSubterraneoEmboscador_h_15_ENHANCED_CONSTRUCTORS \
 private: \

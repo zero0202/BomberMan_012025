@@ -8,6 +8,7 @@
 #include "Bloque.h"
 #include "Enemigo.h"
 #include "FabricaBloques.h"
+#include "FacadeDificultad.h"
 #include "BomberMan_012025GameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -23,7 +24,7 @@ public:
 
 	virtual void BeginPlay() override;
 
-
+	AFacadeDificultad* Dificultad;
 public:
 
 	//Para bloque
@@ -39,6 +40,8 @@ public:
 	//Para clonar bloques
 	void ClonarBloque();
 
+	void GenerarEnemigos();
+
 	//para Eliminar bloques
 	ABloque* BloqueActual = nullptr;
 	FTimerHandle TimerEliminarBloque;
@@ -52,7 +55,7 @@ public:
 	UPROPERTY()
 	TArray<AEnemigo*> EnemigosA;//GUARDA LOS ENEMIGOS 
 	TArray<FVector> PuntosPatrullaLibres;
-	void SpawnEnemigos();
+	//void SpawnEnemigos();
 
 	//para eliminar enemigos
 	AEnemigo* EnemigoActual = nullptr;

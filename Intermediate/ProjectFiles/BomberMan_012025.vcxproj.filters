@@ -135,6 +135,12 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\BomberMan_012025GameMode.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\ConfiguracionNivel.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\ConfiguracionNivel.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\Enemigo.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
@@ -201,6 +207,12 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\FabricaBloques.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\FacadeDificultad.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\FacadeDificultad.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\IPrototypeBloque.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
@@ -217,6 +229,24 @@
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\Muro.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Nivel_1.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\Nivel_1.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Nivel_2.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\Nivel_2.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\Nivel_3.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\Nivel_3.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\Teletransportador.cpp">

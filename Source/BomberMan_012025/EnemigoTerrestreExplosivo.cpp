@@ -58,11 +58,14 @@ AEnemigoTerrestreExplosivo::AEnemigoTerrestreExplosivo()
 void AEnemigoTerrestreExplosivo::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorLocation(FVector(2440.f, 4370.f, 100.f));
+
+	
 	if (GameModeReference && GameModeReference->PuntosPatrullaLibres.Num() > 0)
 	{
 		int32 Index = FMath::RandRange(0, GameModeReference->PuntosPatrullaLibres.Num() - 1);
 		SetActorLocation(GameModeReference->PuntosPatrullaLibres[Index]);
+
+		GameModeReference->PuntosPatrullaLibres.RemoveAt(Index);
 		float Angulo = FMath::RandRange(0, 3) * 90.0f;
 		SetActorRotation(FRotator(0, Angulo, 0));
 	}

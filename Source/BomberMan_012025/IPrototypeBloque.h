@@ -23,7 +23,6 @@ class BOMBERMAN_012025_API IIPrototypeBloque
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	//virtual ~IIPrototypeBloque() = default;
 	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) const = 0;
 
 };

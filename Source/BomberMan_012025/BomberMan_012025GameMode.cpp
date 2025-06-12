@@ -105,11 +105,12 @@ void ABomberMan_012025GameMode::BeginPlay()
 */
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
-	GenerarBloqueMovible();
+	//GenerarBloqueMovible();
     PosicionarJugadorAleatoriamente();
     GenerarPortal();
-    SpawnEnemigos();
-	GenerarMonedas();
+   // SpawnEnemigos();
+	GenerarEnemigos();
+	//GenerarMonedas();
 	ClonarBloque();
 
 	//---------------------TEMPORIZADORES DEL JUEGO------------------
@@ -354,7 +355,8 @@ void ABomberMan_012025GameMode::GenerarBloqueMovible()
 }
 
 void ABomberMan_012025GameMode::ClonarBloque()
-{// Supongamos que tienes un prototipo colocado en el mundo
+{
+
     TArray<AActor*> Resultados;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueMadera::StaticClass(), Resultados);
 
@@ -363,12 +365,21 @@ void ABomberMan_012025GameMode::ClonarBloque()
         ABloqueMadera* Prototipo = Cast<ABloqueMadera>(Resultados[0]);
         if (Prototipo)
         {
-            FVector PosDestino(2300, 4300, 1100); // donde quieras clonarlo
+            FVector PosDestino(2300, 4300, 1400); // donde clonarlo
             AActor* Clon = Prototipo->Clonar(GetWorld(), PosDestino);
+            //FVector PosDes(3600, 4300, 1400);
+            //AActor* clo1 = Prototipo->Clonar(GetWorld(),PosDes);
         }
     }
 }
+void ABomberMan_012025GameMode::GenerarEnemigos()
+{
+	Dificultad = GetWorld()->SpawnActor<AFacadeDificultad>(AFacadeDificultad::StaticClass());
+	//Dificultad->IniciarNivel1();
+	Dificultad->IniciarNivel2();
+	//Dificultad->IniciarNivel3();
 
+}
 void ABomberMan_012025GameMode::GenerarPortal()
 {
     ATeletransportador* Puerta1 = GetWorld()->SpawnActor<ATeletransportador>(ATeletransportador::StaticClass(), FVector(800.0f, 880.0f, 10.0f), FRotator::ZeroRotator);
@@ -500,7 +511,7 @@ void ABomberMan_012025GameMode::EleminarEnemigos()
     }
    
 }
-
+/*
 void ABomberMan_012025GameMode::SpawnEnemigos()
 {
     if (PuntosPatrullaLibres.Num() < 8) return;
@@ -518,25 +529,39 @@ void ABomberMan_012025GameMode::SpawnEnemigos()
             return Posicion;
         };
 
-    // Spawnear 5 enemigos aleatorios en posiciones vacías
-    GetWorld()->SpawnActor<AEnemigoTerrestreExplosivo>(AEnemigoTerrestreExplosivo::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
-    GetWorld()->SpawnActor<AEnemigoAcuaticoSaltarin>(AEnemigoAcuaticoSaltarin::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
-    GetWorld()->SpawnActor<AEnemigoAcuaticoMedusa>(AEnemigoAcuaticoMedusa::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
-    GetWorld()->SpawnActor<AEnemigoSubterraneoEmboscador>(AEnemigoSubterraneoEmboscador::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
-    GetWorld()->SpawnActor<AEnemigoSubterraneoGolem>(AEnemigoSubterraneoGolem::StaticClass(), ObtenerPosicionAleatoria(), FRotator::ZeroRotator);
+    for (int32 i = 0; i < 5; ++i)
+    {
+        int32 TipoEnemigo = FMath::RandRange(1, 5);
+        FVector Posicion = ObtenerPosicionAleatoria();
 
+        switch (TipoEnemigo)
+        {
+        case 1:
+            GetWorld()->SpawnActor<AEnemigoTerrestreExplosivo>(AEnemigoTerrestreExplosivo::StaticClass(), Posicion, FRotator::ZeroRotator);
+            break;
+        case 2:
+            GetWorld()->SpawnActor<AEnemigoAcuaticoSaltarin>(AEnemigoAcuaticoSaltarin::StaticClass(), Posicion, FRotator::ZeroRotator);
+            break;
+        case 3:
+            GetWorld()->SpawnActor<AEnemigoAcuaticoMedusa>(AEnemigoAcuaticoMedusa::StaticClass(), Posicion, FRotator::ZeroRotator);
+            break;
+        case 4:
+            GetWorld()->SpawnActor<AEnemigoSubterraneoEmboscador>(AEnemigoSubterraneoEmboscador::StaticClass(), Posicion, FRotator::ZeroRotator);
+            break;
+        case 5:
+            GetWorld()->SpawnActor<AEnemigoSubterraneoGolem>(AEnemigoSubterraneoGolem::StaticClass(), Posicion, FRotator::ZeroRotator);
+            break;
+        }
+    }
     // Spawnear 3 enemigos en posiciones fijas
     GetWorld()->SpawnActor<AEnemigoAereoTransportador>(AEnemigoAereoTransportador::StaticClass(), FVector(2000, 2000, 300), FRotator::ZeroRotator);
     GetWorld()->SpawnActor<AEnemigoTerrestreTortuga>(AEnemigoTerrestreTortuga::StaticClass(), FVector(3000, 3000, 100), FRotator::ZeroRotator);
-    AEnemigoAereoPatrullero* Patrullero = GetWorld()->SpawnActor<AEnemigoAereoPatrullero>(AEnemigoAereoPatrullero::StaticClass(), FVector(4000, 4000, 300), FRotator::ZeroRotator);
+    GetWorld()->SpawnActor<AEnemigoAereoPatrullero>(AEnemigoAereoPatrullero::StaticClass(), FVector(4000, 4000, 300), FRotator::ZeroRotator);
 
-    if (Patrullero)
-    {
-        Patrullero->PuntosPatrulla = PuntosPatrullaLibres;
-    }
+    
 
 }
-
+*/
 void ABomberMan_012025GameMode::PosicionarJugadorAleatoriamente()
 {
     TArray<FVector> PosicionesValidas;
@@ -670,7 +695,7 @@ void ABomberMan_012025GameMode::ReemplazarBloqueInterno()
         UE_LOG(LogTemp, Warning, TEXT("Bloque reemplazado en "), *Posicion.ToString());
     }
 }
-
+/*
 void ABomberMan_012025GameMode::GenerarMonedas()
 {
     if (PuntosPatrullaLibres.Num() > 0)
@@ -680,3 +705,4 @@ void ABomberMan_012025GameMode::GenerarMonedas()
         GetWorld()->SpawnActor<AMoneda>(AMoneda::StaticClass(), Pos, FRotator::ZeroRotator);
     }
 }
+*/

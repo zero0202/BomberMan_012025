@@ -26,7 +26,7 @@ ABloqueMadera::ABloqueMadera()
 	}
 
 	// Inicializar variables
-	MoverBloque = false;
+	MoverBloque = true;
 	bAbriendo = false;
 	VelocidadMovimiento = 100.0f; // Velocidad de movimiento
 	DistanciaApertura = 200.0f;   // Distancia máxima de apertura
@@ -83,7 +83,7 @@ AActor* ABloqueMadera::Clonar(UWorld* Mundo, const FVector& Posicion) const
 	FActorSpawnParameters SpawnParams;
 	ABloqueMadera* Nuevo = Mundo->SpawnActor<ABloqueMadera>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
 
-	// Copiar estado relevante
+	
 	if (Nuevo)
 	{
 		Nuevo->TiempoMovimiento = this->TiempoMovimiento;

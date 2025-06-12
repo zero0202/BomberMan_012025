@@ -23,20 +23,13 @@ AEnemigoTerrestreTortuga::AEnemigoTerrestreTortuga()
 		MeshEnemigo->SetMaterial(0, ObjetoBloqueMaterial.Object);
 	}
 
-	// Configurar colision
-	USphereComponent* ColisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("ColisionComponent"));
-	ColisionComponent->InitSphereRadius(100.f);
-	ColisionComponent->SetCollisionProfileName(TEXT("Trigger"));
-	ColisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AEnemigoTerrestreTortuga::OnCollisionWithPlayer);
-	RootComponent = ColisionComponent;
 
 	AjustarTamano(FVector(3.0f, 3.0f, 4.5f));
 	
 	VelocidadMovimineto = 100.f;
-	Vida = 100;
-	Danio = 20;
-	DefensaCaparazon = 30.f;
-	bEnCaparazon = false;
+	bSaltando = false;
+	TiempoEnAire = 0.0f;
+	DuracionSalto = 1.0f;
 }
 
 void AEnemigoTerrestreTortuga::BeginPlay()
@@ -47,8 +40,7 @@ void AEnemigoTerrestreTortuga::BeginPlay()
 	{
 		int32 Index = FMath::RandRange(0, GameModeReference->PuntosPatrullaLibres.Num() - 1);
 		SetActorLocation(GameModeReference->PuntosPatrullaLibres[Index]);
-		float Angulo = FMath::RandRange(0, 3) * 90.0f;
-		SetActorRotation(FRotator(0, Angulo, 0));
+		IniciarSalto();
 	}
 }
 
@@ -56,41 +48,58 @@ void AEnemigoTerrestreTortuga::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector Direccion = GetActorForwardVector();
-	FVector NuevaPos = GetActorLocation() + Direccion * VelocidadMovimineto * DeltaTime;
+	if (!bSaltando) return;
 
-	if (GameModeReference && EsEspacioLibre(NuevaPos))
+	TiempoEnAire += DeltaTime;
+	float Alpha = TiempoEnAire / DuracionSalto;
+
+	if (Alpha >= 1.0f)
 	{
-		SetActorLocation(NuevaPos);
+		SetActorLocation(ObjetivoSalto);
+		IniciarSalto();
+		return;
 	}
-	else
+
+	FVector PosicionIntermedia = FMath::Lerp(PosicionInicial, ObjetivoSalto, Alpha);
+	float Alturah = 300.f * FMath::Sin(Alpha * PI); // curva de salto
+	PosicionIntermedia.Z += Alturah;
+	SetActorLocation(PosicionIntermedia);
+
+}
+
+void AEnemigoTerrestreTortuga::IniciarSalto()
+{
+	PosicionInicial = GetActorLocation();
+	ObjetivoSalto = CalcularNuevoDestino();
+	TiempoEnAire = 0.0f;
+	bSaltando = true;
+}
+
+FVector AEnemigoTerrestreTortuga::CalcularNuevoDestino()
+{
+	if (!GameModeReference) return GetActorLocation();
+
+	TArray<FVector> OpcionesValidas;
+	FVector PosActual = GetActorLocation();
+	TArray<FVector> Direcciones = {
+		FVector(Espaciado, 0, 0), FVector(-Espaciado, 0, 0),
+		FVector(0, Espaciado, 0), FVector(0, -Espaciado, 0)
+	};
+
+	for (const FVector& Dir : Direcciones)
 	{
-		CambiarDireccion();
+		FVector NuevaPos = PosActual + Dir;
+		if (EsEspacioLibre(NuevaPos))
+		{
+			OpcionesValidas.Add(NuevaPos);
+		}
 	}
-}
 
-void AEnemigoTerrestreTortuga::OnCollisionWithPlayer(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	ABomberMan_012025Character* Personaje = Cast<ABomberMan_012025Character>(OtherActor);
-	if (Personaje)
+	if (OpcionesValidas.Num() > 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("La tortuga colisionó con el jugador!"));
-		ActivarCaparazon();
+		return OpcionesValidas[FMath::RandRange(0, OpcionesValidas.Num() - 1)];
 	}
+
+	return PosActual;
 }
 
-void AEnemigoTerrestreTortuga::ActivarCaparazon()
-{
-	bEnCaparazon = true;
-	FTimerHandle TimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]() {
-		bEnCaparazon = false;
-		}, 3.0f, false);
-}
-
-void AEnemigoTerrestreTortuga::CambiarDireccion()
-{
-	FRotator NuevaRot = GetActorRotation();
-	NuevaRot.Yaw += 90.0f;
-	SetActorRotation(NuevaRot);
-}
