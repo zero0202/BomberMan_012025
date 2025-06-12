@@ -141,6 +141,12 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\ConfiguracionNivel.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\ContenedorMonedas.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\ContenedorMonedas.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\Enemigo.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
@@ -213,6 +219,12 @@
     <ClInclude Include="..\..\Source\BomberMan_012025\FacadeDificultad.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\IElementoInventario.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\IElementoInventario.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\IPrototypeBloque.cpp">
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
@@ -247,6 +259,12 @@
       <Filter>Source\BomberMan_012025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\Nivel_3.h">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_012025\ObjetosInventario.cpp">
+      <Filter>Source\BomberMan_012025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\ObjetosInventario.h">
       <Filter>Source\BomberMan_012025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_012025\Teletransportador.cpp">

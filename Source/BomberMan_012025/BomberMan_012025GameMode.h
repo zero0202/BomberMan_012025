@@ -70,6 +70,8 @@ public:
 	TMap<AActor*, float> ActoresTeletransportados;
 	void GenerarPortal();
 
+
+
 public:
 	
 	void PosicionarJugadorAleatoriamente();

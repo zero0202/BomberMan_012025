@@ -354,6 +354,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\ConfiguracionNivel.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\ContenedorMonedas.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\ContenedorMonedas.h"/>
     <ClCompile Include="..\..\Source\BomberMan_012025\Enemigo.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -402,6 +406,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\FacadeDificultad.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\IElementoInventario.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\IElementoInventario.h"/>
     <ClCompile Include="..\..\Source\BomberMan_012025\IPrototypeBloque.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -426,6 +434,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_012025\Nivel_3.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_012025\ObjetosInventario.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_012025\ObjetosInventario.h"/>
     <ClCompile Include="..\..\Source\BomberMan_012025\Teletransportador.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

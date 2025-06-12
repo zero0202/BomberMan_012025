@@ -32,6 +32,7 @@
 #include "EnemigoAcuaticoMedusa.h" 
 #include "Moneda.h"
 #include "IPrototypeBloque.h"
+#include "ContenedorMonedas.h"
 
 ABomberMan_012025GameMode::ABomberMan_012025GameMode()
 {
@@ -103,6 +104,34 @@ void ABomberMan_012025GameMode::BeginPlay()
 {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
 };
 */
+
+
+    // Crear monedas individuales
+    AMoneda* Moneda1 = GetWorld()->SpawnActor<AMoneda>(AMoneda::StaticClass(), FVector(800.0f, 880.0f, 10.0f), FRotator::ZeroRotator);
+    AMoneda* Moneda2 = GetWorld()->SpawnActor<AMoneda>(AMoneda::StaticClass(), FVector(900.0f, 880.0f, 10.0f), FRotator::ZeroRotator);
+
+    // Crear un contenedor
+    AContenedorMonedas* Contenedor = GetWorld()->SpawnActor<AContenedorMonedas>(AContenedorMonedas::StaticClass(), FVector(0, 200, 100), FRotator::ZeroRotator);
+
+    // Verificar que las monedas implementan la interfaz y agregarlas
+    if (Contenedor && Moneda1 && Moneda2)
+    {
+        IIElementoInventario* InterfazMoneda1 = Cast<IIElementoInventario>(Moneda1);
+        IIElementoInventario* InterfazMoneda2 = Cast<IIElementoInventario>(Moneda2);
+
+        if (InterfazMoneda1)
+        {
+            Contenedor->AgregarElemento(InterfazMoneda1);
+        }
+
+        if (InterfazMoneda2)
+        {
+            Contenedor->AgregarElemento(InterfazMoneda2);
+        }
+
+      
+        Contenedor->MostrarContenedor();
+    }
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
 	//GenerarBloqueMovible();
@@ -706,3 +735,4 @@ void ABomberMan_012025GameMode::GenerarMonedas()
     }
 }
 */
+
